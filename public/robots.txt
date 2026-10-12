@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://xikanglai.art/sitemap.xml
