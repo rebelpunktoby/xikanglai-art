@@ -30,7 +30,7 @@
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:68px}
-body{background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--f-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--f-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 [lang="zh-Hant"]{font-family:var(--f-zh)}
 a{color:inherit;text-underline-offset:.28em;text-decoration-thickness:1px}
 :focus-visible{outline:1px solid currentColor;outline-offset:4px}
@@ -384,6 +384,55 @@ dialog[open]{opacity:1}
   .ch-thresholds .ch-in{min-height:0;padding-block:96px 88px}
   .about figure{grid-column:1/9}
 }
+
+/* ===== v9 step-up: chapter rooms, salon frieze, monumental phone images ===== */
+.band{position:relative;height:clamp(440px,78vh,840px);overflow:hidden;background:#141229;margin-top:clamp(110px,13vw,200px)}
+.band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.band::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(18,16,38,.78) 0%,rgba(18,16,38,.18) 50%,rgba(18,16,38,0) 75%)}
+.band-in{position:absolute;inset:auto 0 0 0;z-index:1;max-width:var(--max);margin-inline:auto;padding:0 var(--gut) clamp(28px,4.5vw,64px);display:flex;justify-content:space-between;align-items:flex-end;gap:16px 32px;flex-wrap:wrap;color:#F1F0F7}
+.ch-force .band-in{flex-direction:row-reverse;text-align:right}
+.ch-force .band-in h2{justify-items:end}
+.band h2{margin:0;display:grid;gap:.55em}
+.band .ch-en{font-size:clamp(38px,6.4vw,96px);color:#F7F6FB}
+.band .ch-zh{color:rgba(241,240,247,.78)}
+.band-cap{margin:0;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(241,240,247,.62);max-width:36ch}
+.band-cap i{font-style:italic;text-transform:none;letter-spacing:.04em}
+.band-cap [lang]{letter-spacing:.2em}
+.has-band .ch-in{padding-top:clamp(36px,5vw,64px)}
+.has-band .ch-in::before{display:none}
+.ch-public.has-band .ch-intro{grid-column:3/9}
+@supports (animation-timeline: view()){
+  @keyframes room-open{from{clip-path:inset(0 7% 0 7%)}}
+  @keyframes room-approach{from{scale:1.14}}
+  .band{animation:room-open linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+  .band img{animation:room-approach linear both;animation-timeline:view();animation-range:entry 0% exit 20%}
+}
+/* salon frieze: additional works hang at one height, true proportions, no boxes */
+.group-grid{display:flex;flex-wrap:wrap;align-items:flex-end;gap:30px clamp(24px,2.6vw,40px)}
+.group{--fh:clamp(170px,16vw,236px)}
+.group .sec{flex:0 0 auto;width:max(calc(var(--fh) * var(--ar,.7)),11em)}
+.group .sec .frame{aspect-ratio:auto;height:auto;width:auto;max-width:none;background:none;display:block;padding:0}
+.group .sec .frame img{height:var(--fh);width:auto;max-width:100%;object-fit:contain;display:block}
+.group-grid{align-items:flex-start}
+.group.relief .group-grid{display:block}
+.group.relief .sec{width:auto;max-width:820px}
+.group.relief .sec .frame{width:100%}
+.group.relief .sec .frame img{height:auto;width:100%}
+@media (max-width:899px){
+  .band{height:74svh;min-height:420px;margin-top:96px}
+  .band-in,.ch-force .band-in{flex-direction:column;align-items:flex-start;text-align:left}
+  .ch-force .band-in h2{justify-items:start}
+  .ch-public.has-band .ch-intro{grid-column:1/-1}
+  /* phone: featured photographs run edge to edge */
+  .works>.work:not(.duo) .frame,.duo .main .frame,.pair-item.p1 .frame,.series-main .frame{margin-inline:calc(-1 * var(--gut));width:calc(100% + 2 * var(--gut));max-width:none}
+  .works{gap:clamp(96px,22vw,150px)}
+  /* phone: the salon becomes a swipeable strip */
+  .group-grid{flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * var(--gut));padding-inline:var(--gut);scroll-padding-inline:var(--gut);scrollbar-width:none;padding-bottom:6px}
+  .group-grid::-webkit-scrollbar{display:none}
+  .group .sec{scroll-snap-align:start}
+  .group{--fh:min(300px,46svh)}
+  .group.relief .group-grid{overflow:visible;margin-inline:0;padding-inline:0}
+}
 </style>
 </head>
 <body>
@@ -409,9 +458,12 @@ dialog[open]{opacity:1}
   </section>
 
 <section class="chapter" aria-labelledby="body-h">
-<header class="ch-head ch-body" id="body">
+<header class="ch-head ch-body has-band" id="body">
+  <div class="band">
+    <img src="assets/img/midsummer-night.jpg" alt="" loading="lazy" decoding="async" style="object-position:50% 55%">
+    <div class="band-in"><h2 id="body-h"><span class="ch-en">Body &amp; Gesture</span><span class="ch-zh" lang="zh-Hant">身體與姿態</span></h2><p class="band-cap">Detail · <span lang="zh-Hant">局部</span> — <i>Midsummer Night (Part 1)</i> <span lang="zh-Hant">仲夏夜（之一）</span>, <span class="num">2015</span></p></div>
+  </div>
   <div class="ch-in">
-    <h2 id="body-h"><span class="ch-en">Body &amp; Gesture</span><span class="ch-zh" lang="zh-Hant">身體與姿態</span></h2>
     <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">我認為舞蹈是運動的雕塑，而雕塑則是靜止的舞蹈。</blockquote><p class="tr">I think of dance as sculpture in motion, and sculpture as dance at rest. <span class="tr-mark">(translation)</span></p><figcaption>Xikang Lai, notes on Dialogue of the Wind<span lang="zh-Hant">賴錫康《風之對話》創作筆記</span></figcaption></figure>
   </div>
 </header>
@@ -460,19 +512,19 @@ dialog[open]{opacity:1}
   <p class="addl-kicker">Additional works <span lang="zh-Hant">延伸作品</span></p>
   <section class="group " aria-label="Figures, 2007–2019">
   <h3 class="group-title">Figures, 2007–2019 <span lang="zh-Hant">人體 2007–2019</span></h3>
-  <ul class="group-grid n4"><li class="sec" id="eagle-city-night"><button class="frame" type="button" data-i="4" data-v="0" aria-label="Open details: An Eagle Flying in the Night Sky of the City, cupronickel, 2007"><img src="assets/img/thumb/eagle-city-night.jpg" srcset="assets/img/thumb/eagle-city-night.jpg 800w, assets/img/eagle-city-night.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1091" height="1600" alt="An Eagle Flying in the Night Sky of the City, cupronickel, 2007" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <ul class="group-grid n4"><li class="sec" id="eagle-city-night" style="--ar:0.6819"><button class="frame" type="button" data-i="4" data-v="0" aria-label="Open details: An Eagle Flying in the Night Sky of the City, cupronickel, 2007"><img src="assets/img/thumb/eagle-city-night.jpg" srcset="assets/img/thumb/eagle-city-night.jpg 800w, assets/img/eagle-city-night.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1091" height="1600" alt="An Eagle Flying in the Night Sky of the City, cupronickel, 2007" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">城市夜空的鷹</p>
   <h4 class="en">An Eagle Flying in the Night Sky of the City</h4>
   <p class="meta"><span class="num">2007</span> · Cupronickel <span lang="zh-Hant">白銅</span></p>
-</div></li><li class="sec" id="heaven-earth"><button class="frame" type="button" data-i="5" data-v="0" aria-label="Open details: Between Heaven and Earth"><img src="assets/img/thumb/heaven-earth.jpg" srcset="assets/img/thumb/heaven-earth.jpg 800w, assets/img/heaven-earth.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1066" height="1600" alt="Between Heaven and Earth" loading="lazy" decoding="async"></button><div class="label-block compact">
+</div></li><li class="sec" id="heaven-earth" style="--ar:0.6663"><button class="frame" type="button" data-i="5" data-v="0" aria-label="Open details: Between Heaven and Earth"><img src="assets/img/thumb/heaven-earth.jpg" srcset="assets/img/thumb/heaven-earth.jpg 800w, assets/img/heaven-earth.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1066" height="1600" alt="Between Heaven and Earth" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">天與地</p>
   <h4 class="en">Between Heaven and Earth</h4>
-
-</div></li><li class="sec" id="cape-good-hope"><button class="frame" type="button" data-i="6" data-v="0" aria-label="Open details: 地平線上的好望角, bronze, 2015"><img src="assets/img/thumb/cape-good-hope.jpg" srcset="assets/img/thumb/cape-good-hope.jpg 800w, assets/img/cape-good-hope.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="1178" alt="地平線上的好望角, bronze, 2015" loading="lazy" decoding="async"></button><div class="label-block compact">
+  
+</div></li><li class="sec" id="cape-good-hope" style="--ar:1.3582"><button class="frame" type="button" data-i="6" data-v="0" aria-label="Open details: 地平線上的好望角, bronze, 2015"><img src="assets/img/thumb/cape-good-hope.jpg" srcset="assets/img/thumb/cape-good-hope.jpg 800w, assets/img/cape-good-hope.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="1178" alt="地平線上的好望角, bronze, 2015" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">地平線上的好望角</p>
   <h4 class="en pinyin">Dipingxian shang de Haowangjiao</h4>
   <p class="meta"><span class="num">2015</span> · Bronze <span lang="zh-Hant">青銅</span></p>
-</div></li><li class="sec" id="rose"><button class="frame" type="button" data-i="7" data-v="0" aria-label="Open details: 玫瑰, clay, 2019"><img src="assets/img/thumb/rose.jpg" srcset="assets/img/thumb/rose.jpg 800w, assets/img/rose.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1016" height="1600" alt="玫瑰, clay, 2019" loading="lazy" decoding="async"></button><div class="label-block compact">
+</div></li><li class="sec" id="rose" style="--ar:0.6350"><button class="frame" type="button" data-i="7" data-v="0" aria-label="Open details: 玫瑰, clay, 2019"><img src="assets/img/thumb/rose.jpg" srcset="assets/img/thumb/rose.jpg 800w, assets/img/rose.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1016" height="1600" alt="玫瑰, clay, 2019" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">玫瑰</p>
   <h4 class="en pinyin">Meigui</h4>
   <p class="meta"><span class="num">2019</span> · Clay <span lang="zh-Hant">泥塑</span></p>
@@ -482,9 +534,12 @@ dialog[open]{opacity:1}
 </div>
 </section>
 <section class="chapter" aria-labelledby="force-h">
-<header class="ch-head ch-force" id="force">
+<header class="ch-head ch-force has-band" id="force">
+  <div class="band">
+    <img src="assets/img/resultant-force.jpg" alt="" loading="lazy" decoding="async" style="object-position:50% 50%">
+    <div class="band-in"><h2 id="force-h"><span class="ch-en">Force &amp; Equilibrium</span><span class="ch-zh" lang="zh-Hant">力與平衡</span></h2><p class="band-cap">Detail · <span lang="zh-Hant">局部</span> — <i>Resultant Force</i> <span lang="zh-Hant">合力</span>, <span class="num">2015</span></p></div>
+  </div>
   <div class="ch-in">
-    <h2 id="force-h"><span class="ch-en">Force &amp; Equilibrium</span><span class="ch-zh" lang="zh-Hant">力與平衡</span></h2>
     <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">平衡是美的，它能把你從不安帶回到平靜。</blockquote><p class="tr">Balance is beautiful; it can bring you back from unease to calm. <span class="tr-mark">(translation)</span></p><figcaption>Xikang Lai, notes on Balance<span lang="zh-Hant">賴錫康《平衡》創作筆記</span></figcaption></figure>
   </div>
 </header>
@@ -602,9 +657,12 @@ dialog[open]{opacity:1}
 </div>
 </section>
 <section class="chapter" aria-labelledby="public-h">
-<header class="ch-head ch-public" id="public">
+<header class="ch-head ch-public has-band" id="public">
+  <div class="band">
+    <img src="assets/img/for-peace.jpg" alt="" loading="lazy" decoding="async" style="object-position:50% 45%">
+    <div class="band-in"><h2 id="public-h"><span class="ch-en">Public Works &amp; Archive</span><span class="ch-zh" lang="zh-Hant">公共藝術與文獻</span></h2><p class="band-cap">Detail · <span lang="zh-Hant">局部</span> — <i>For Peace</i> <span lang="zh-Hant">為了和平</span>, <span class="num">2011</span></p></div>
+  </div>
   <div class="ch-in">
-    <h2 id="public-h"><span class="ch-en">Public Works &amp; Archive</span><span class="ch-zh" lang="zh-Hant">公共藝術與文獻</span></h2>
     <div class="ch-intro"><p>Monuments and reliefs in China and South Korea, 2000–2018.</p><p lang="zh-Hant">中國與韓國的紀念像與浮雕，2000–2018。</p></div>
   </div>
 </header>
@@ -620,26 +678,26 @@ dialog[open]{opacity:1}
   <p class="addl-kicker">Additional works <span lang="zh-Hant">延伸作品</span></p>
   <section class="group " aria-label="Historical figures">
   <h3 class="group-title">Historical figures <span lang="zh-Hant">歷史人物</span></h3>
-  <ul class="group-grid n4"><li class="sec" id="an-jung-geun"><button class="frame" type="button" data-i="22" data-v="0" aria-label="Open details: An Jung-geun, bronze"><img src="assets/img/thumb/an-jung-geun.jpg" srcset="assets/img/thumb/an-jung-geun.jpg 800w, assets/img/an-jung-geun.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1200" height="1600" alt="An Jung-geun, bronze" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <ul class="group-grid n4"><li class="sec" id="an-jung-geun" style="--ar:0.7500"><button class="frame" type="button" data-i="22" data-v="0" aria-label="Open details: An Jung-geun, bronze"><img src="assets/img/thumb/an-jung-geun.jpg" srcset="assets/img/thumb/an-jung-geun.jpg 800w, assets/img/an-jung-geun.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1200" height="1600" alt="An Jung-geun, bronze" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">安重根</p>
   <h4 class="en">An Jung-geun</h4>
   <p class="meta">Bronze <span lang="zh-Hant">青銅</span></p>
-</div></li><li class="sec" id="sun-yat-sen"><button class="frame" type="button" data-i="23" data-v="0" aria-label="Open details: Sun Yat-sen, granite, 2006"><img src="assets/img/thumb/sun-yat-sen.jpg" srcset="assets/img/thumb/sun-yat-sen.jpg 800w, assets/img/sun-yat-sen.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="949" height="1600" alt="Sun Yat-sen, granite, 2006" loading="lazy" decoding="async"></button><div class="label-block compact">
+</div></li><li class="sec" id="sun-yat-sen" style="--ar:0.5931"><button class="frame" type="button" data-i="23" data-v="0" aria-label="Open details: Sun Yat-sen, granite, 2006"><img src="assets/img/thumb/sun-yat-sen.jpg" srcset="assets/img/thumb/sun-yat-sen.jpg 800w, assets/img/sun-yat-sen.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="949" height="1600" alt="Sun Yat-sen, granite, 2006" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">孫中山</p>
   <h4 class="en">Sun Yat-sen</h4>
   <p class="meta"><span class="num">2006</span> · Granite <span lang="zh-Hant">花崗石</span></p>
-</div></li><li class="sec" id="zheng-lucheng"><button class="frame" type="button" data-i="24" data-v="0" aria-label="Open details: 軍歌嘹亮——鄭律成, bronze, 2012"><img src="assets/img/thumb/zheng-lucheng.jpg" srcset="assets/img/thumb/zheng-lucheng.jpg 800w, assets/img/zheng-lucheng.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="1202" alt="軍歌嘹亮——鄭律成, bronze, 2012" loading="lazy" decoding="async"></button><div class="label-block compact">
+</div></li><li class="sec" id="zheng-lucheng" style="--ar:1.3311"><button class="frame" type="button" data-i="24" data-v="0" aria-label="Open details: 軍歌嘹亮——鄭律成, bronze, 2012"><img src="assets/img/thumb/zheng-lucheng.jpg" srcset="assets/img/thumb/zheng-lucheng.jpg 800w, assets/img/zheng-lucheng.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="1202" alt="軍歌嘹亮——鄭律成, bronze, 2012" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">軍歌嘹亮——鄭律成</p>
   <h4 class="en pinyin">Junge Liaoliang — Zheng Lücheng</h4>
   <p class="meta"><span class="num">2012</span> · Bronze <span lang="zh-Hant">青銅</span></p>
-</div></li><li class="sec" id="zu-chongzhi"><button class="frame" type="button" data-i="25" data-v="0" aria-label="Open details: Zu Chongzhi, bronze, 2016"><img src="assets/img/thumb/zu-chongzhi.jpg" srcset="assets/img/thumb/zu-chongzhi.jpg 800w, assets/img/zu-chongzhi.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1353" height="1600" alt="Zu Chongzhi, bronze, 2016" loading="lazy" decoding="async"></button><div class="label-block compact">
+</div></li><li class="sec" id="zu-chongzhi" style="--ar:0.8456"><button class="frame" type="button" data-i="25" data-v="0" aria-label="Open details: Zu Chongzhi, bronze, 2016"><img src="assets/img/thumb/zu-chongzhi.jpg" srcset="assets/img/thumb/zu-chongzhi.jpg 800w, assets/img/zu-chongzhi.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1353" height="1600" alt="Zu Chongzhi, bronze, 2016" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">祖沖之</p>
   <h4 class="en">Zu Chongzhi</h4>
   <p class="meta"><span class="num">2016</span> · Bronze <span lang="zh-Hant">青銅</span></p>
 </div></li></ul>
 </section><section class="group relief" aria-label="Relief">
   <h3 class="group-title">Relief <span lang="zh-Hant">浮雕</span></h3>
-  <ul class="group-grid n1"><li class="sec" id="for-peace"><button class="frame" type="button" data-i="26" data-v="0" aria-label="Open details: For Peace, bronze relief, 2011"><img src="assets/img/thumb/for-peace.jpg" srcset="assets/img/thumb/for-peace.jpg 800w, assets/img/for-peace.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="746" alt="For Peace, bronze relief, 2011" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <ul class="group-grid n1"><li class="sec" id="for-peace" style="--ar:2.1448"><button class="frame" type="button" data-i="26" data-v="0" aria-label="Open details: For Peace, bronze relief, 2011"><img src="assets/img/thumb/for-peace.jpg" srcset="assets/img/thumb/for-peace.jpg 800w, assets/img/for-peace.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="746" alt="For Peace, bronze relief, 2011" loading="lazy" decoding="async"></button><div class="label-block compact">
   <p class="zh" lang="zh-Hant">為了和平</p>
   <h4 class="en">For Peace</h4>
   <p class="meta"><span class="num">2011</span> · Bronze relief <span lang="zh-Hant">青銅浮雕</span></p>
