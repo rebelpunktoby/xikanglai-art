@@ -471,8 +471,8 @@
     "title_zh": "水天（之一）",
     "title_en": "Float (Part 1)",
     "title_en_kind": "title",
-    "note": "Year differs between sources (archive file 2014; CV lists a 2012 Huayi sale)",
-    "year": null,
+    "note": null,
+    "year": "2012",
     "material_en": "Bronze",
     "material_zh": "青銅",
     "size": "65 × 22 × 33 cm",
@@ -500,10 +500,6 @@
         [
           "The catalogue's English translation of the essay calls the work \"Water Sky\"; the exhibited English title is Float.",
           "畫冊英譯專文稱作品為 Water Sky，展覽英文題名則為 Float。"
-        ],
-        [
-          "Years for Float (Part 1) and (Part 2) differ between sources.",
-          "《水天》之一、之二的年份各檔案記載不一。"
         ]
       ],
       "quote": {
@@ -523,8 +519,8 @@
     "title_zh": "水天（之二）",
     "title_en": "Float (Part 2)",
     "title_en_kind": "title",
-    "note": "Year differs between sources (archive file 2015; CV lists a 2014 Huayi sale)",
-    "year": null,
+    "note": null,
+    "year": "2014",
     "material_en": "Bronze",
     "material_zh": "青銅",
     "size": null,
@@ -552,10 +548,6 @@
         [
           "The catalogue's English translation of the essay calls the work \"Water Sky\"; the exhibited English title is Float.",
           "畫冊英譯專文稱作品為 Water Sky，展覽英文題名則為 Float。"
-        ],
-        [
-          "Years for Float (Part 1) and (Part 2) differ between sources.",
-          "《水天》之一、之二的年份各檔案記載不一。"
         ]
       ],
       "quote": {
@@ -604,10 +596,6 @@
         [
           "The catalogue's English translation of the essay calls the work \"Water Sky\"; the exhibited English title is Float.",
           "畫冊英譯專文稱作品為 Water Sky，展覽英文題名則為 Float。"
-        ],
-        [
-          "Years for Float (Part 1) and (Part 2) differ between sources.",
-          "《水天》之一、之二的年份各檔案記載不一。"
         ]
       ],
       "quote": {
@@ -985,8 +973,8 @@
     "title_zh": "軍歌嘹亮——鄭律成",
     "title_en": "The Anthem — Zheng Lücheng",
     "title_en_kind": "title",
-    "note": "Year differs between sources (2005, 2006 or 2012)",
-    "year": null,
+    "note": null,
+    "year": "2006",
     "material_en": "Bronze",
     "material_zh": "青銅",
     "size": null,
