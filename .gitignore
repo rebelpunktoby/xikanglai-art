@@ -1,0 +1,6 @@
+*.pdf
+*.zip
+*.psd
+*.tif
+.DS_Store
+.env
