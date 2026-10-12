@@ -200,7 +200,28 @@ img{display:block;max-width:100%;height:auto}
 .interlude blockquote{grid-column:6/12;margin:0;font:300 clamp(18px,2vw,28px)/1.55 var(--f-display);letter-spacing:.06em;text-transform:uppercase;text-wrap:balance}
 
 /* In the Round signpost: a quiet link to the room reserved for 3D viewing */
-.round-sign{margin-top:clamp(120px,16vw,220px);border-block:1px solid var(--line)}
+.round-sign{margin-top:clamp(120px,16vw,220px)}
+/* In the Round: a white, lit room that opens after the dark chapter rooms (stays white in dark mode too) */
+.round-room{position:relative;display:grid;justify-items:center;align-content:center;gap:clamp(18px,3vh,30px);min-height:clamp(460px,78vh,780px);padding:clamp(48px,8vh,96px) var(--gut);text-align:center;text-decoration:none;color:#17161F;overflow:hidden;isolation:isolate;
+  background:radial-gradient(60% 70% at 50% 58%,#FFFFFF 0%,#FBFBFD 32%,#ECECF3 66%,#DCDDE8 100%)}
+.rr-stage{position:relative;width:min(420px,72vw);aspect-ratio:16/9;order:2}
+.rr-beam{position:absolute;left:50%;top:-18%;width:62%;height:110%;translate:-50% 0;clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);
+  background:linear-gradient(to bottom,transparent 0%,rgba(255,255,255,.95) 22%,rgba(255,255,255,.7) 60%,rgba(255,255,255,.2) 92%,transparent);filter:drop-shadow(0 0 18px rgba(150,162,224,.25));animation:rr-breathe 9s ease-in-out infinite alternate}
+.rr-pool{position:absolute;left:50%;bottom:4%;width:60%;height:26%;translate:-50% 0;border-radius:50%;background:radial-gradient(closest-side,#FFFFFF 0%,rgba(255,255,255,.95) 38%,rgba(150,162,224,.32) 70%,rgba(150,162,224,0) 100%);box-shadow:0 0 60px 6px rgba(150,162,224,.18);animation:rr-breathe 9s ease-in-out infinite alternate}
+@keyframes rr-breathe{from{opacity:.78}to{opacity:1}}
+.rr-title{order:1;font:200 clamp(38px,6.4vw,96px)/1 var(--f-display);letter-spacing:.14em;padding-left:.14em;text-transform:uppercase;color:#1D1C2B}
+.rr-title [lang]{display:block;margin-top:.7em;font:300 .22em/1 var(--f-zh);letter-spacing:.6em;padding-left:.6em;color:#6C6B7B}
+.rr-note{order:3;font-size:11px;line-height:2;letter-spacing:.24em;text-transform:uppercase;color:#17161F}
+.rr-note [lang]{display:block;letter-spacing:.34em;color:#6C6B7B}
+.rr-go{order:4;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:#6C6B7B;border-bottom:1px solid #D9D9E4;padding-bottom:4px;transition:color .4s,border-color .4s}
+.rr-go [lang]{letter-spacing:.3em}
+.round-room:hover .rr-go{color:#17161F;border-color:#17161F}
+.round-room:focus-visible{outline:1px solid #17161F;outline-offset:-8px}
+@supports (animation-timeline: view()){
+  @keyframes rr-pop{from{opacity:.2;scale:.94;clip-path:inset(8% 6% round 24px)}}
+  .round-room{animation:rr-pop linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+}
+@media (prefers-reduced-motion:reduce){.rr-beam,.rr-pool{animation:none}}
 .round-link{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:12px clamp(20px,3vw,48px);padding-block:clamp(36px,5vw,64px);text-decoration:none;color:inherit}
 .rs-title{font:200 clamp(26px,3.2vw,44px)/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase}
 .rs-title [lang]{display:block;margin-top:.6em;font:300 .38em/1 var(--f-zh);letter-spacing:.55em;color:var(--mute)}
@@ -776,7 +797,7 @@ dialog[open]{opacity:1}
   </div>
 </header>
 <div class="wrap works">
-<article class="work L-a" id="lan-gui-teng-fang">
+<article class="work L-b" id="lan-gui-teng-fang">
   <button class="frame" type="button" data-i="21" data-v="0" aria-label="Open details: Orchid and Osmanthus in Bloom, bronze, 2018"><img src="assets/img/thumb/lan-gui-teng-fang.jpg" srcset="assets/img/thumb/lan-gui-teng-fang.jpg 800w, assets/img/lan-gui-teng-fang.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1200" height="1600" alt="Orchid and Osmanthus in Bloom, bronze, 2018" loading="lazy" decoding="async"></button>
   <div class="label-block">
   <p class="zh" lang="zh-Hant">蘭桂騰芳</p>
@@ -816,12 +837,12 @@ dialog[open]{opacity:1}
 </div>
 </div>
 </section>
-<aside class="round-sign" aria-label="In the Round">
-  <a class="wrap round-link" href="in-the-round.html">
-    <span class="mini-plinth" aria-hidden="true"><span class="mini-light"></span></span>
-    <span class="rs-title">In the Round <span lang="zh-Hant">雕塑・環視</span></span>
-    <span class="rs-note">Interactive 3D viewing — coming soon<span lang="zh-Hant">互動式 3D 觀賞・即將推出</span></span>
-    <span class="rs-go" aria-hidden="true">→</span>
+<aside class="round-sign" id="in-the-round" aria-label="In the Round">
+  <a class="round-room" href="in-the-round.html">
+    <span class="rr-stage" aria-hidden="true"><span class="rr-beam"></span><span class="rr-pool"></span></span>
+    <span class="rr-title">In the Round<span lang="zh-Hant">雕塑・環視</span></span>
+    <span class="rr-note">Interactive 3D viewing — coming soon<span lang="zh-Hant">互動式 3D 觀賞・即將推出</span></span>
+    <span class="rr-go" aria-hidden="true">Enter <span lang="zh-Hant">進入</span> →</span>
   </a>
 </aside>
 
