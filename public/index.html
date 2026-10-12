@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Xikang Lai Sculpture</title>
+<meta name="description" content="Xikang Lai 賴錫康: artist, sculptor and educator, Guangzhou. Selected works in four chapters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=Noto+Sans+TC:wght@200;300;400&display=swap">
+<style>
+/* Layout: four rooms of one exhibition. Works sit off-centre on a 12-column grid with labels beside them;
+   each chapter opens with its own spatial composition (left, mirrored right, a navy doorway, a centred close).
+   Motion is CSS scroll-linked and stops once a work is in view: stillness first. */
+:root{
+  --paper:#FAFAFB; --ink:#17161F; --mute:#6C6B7B; --faint:#A3A2B2; --line:#DEDDE6; --frame:#EFEFF3;
+  --plate:#2B284F; --plate-ink:#F1F0F7; --plate-mute:#A9A7C6; --plate-line:#4A4775;
+  --f-display:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
+  --f-body:"Jost","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-zh:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --gut:clamp(16px,4vw,56px); --max:1360px; --gap:clamp(16px,2vw,28px);
+  --ease:cubic-bezier(.2,.7,.15,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --paper:#0F0E16; --ink:#ECEBF3; --mute:#9897AA; --faint:#6A6980; --line:#2A2938; --frame:#1A1924;
+    --plate:#24214A; --plate-ink:#F1F0F7; --plate-mute:#A9A7C6; --plate-line:#3D3A66; color-scheme:dark; }
+}
+:root[data-theme="dark"]{ --paper:#0F0E16; --ink:#ECEBF3; --mute:#9897AA; --faint:#6A6980; --line:#2A2938; --frame:#1A1924;
+  --plate:#24214A; --plate-ink:#F1F0F7; --plate-mute:#A9A7C6; --plate-line:#3D3A66; color-scheme:dark; }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:68px}
+body{background:var(--paper);color:var(--ink);font:400 16px/1.65 var(--f-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+[lang="zh-Hant"]{font-family:var(--f-zh)}
+a{color:inherit;text-underline-offset:.28em;text-decoration-thickness:1px}
+:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+main{overflow-x:clip}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gut)}
+.num{font-variant-numeric:tabular-nums lining-nums}
+img{display:block;max-width:100%;height:auto}
+.eyebrow{margin:0;font:400 11px/1.4 var(--f-body);letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.eyebrow [lang]{letter-spacing:.3em;margin-left:.7em}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:10px 28px;min-height:60px;flex-wrap:wrap;padding-block:10px}
+.brand{font:400 12px/1 var(--f-display);letter-spacing:.28em;text-transform:uppercase;text-decoration:none;display:flex;gap:12px;align-items:baseline;white-space:nowrap}
+.brand span{font:300 12px/1 var(--f-zh);letter-spacing:.32em}
+.nav{display:flex;gap:4px clamp(14px,2.4vw,34px);flex-wrap:wrap}
+.nav a{font:400 11px/1 var(--f-body);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--mute);padding-block:8px;position:relative;transition:color .4s}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.nav a:hover,.nav a.on{color:var(--ink)}
+.nav a.on::after{transform:scaleX(1)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);padding-block:clamp(32px,5vw,72px) clamp(40px,6vw,96px);align-items:end}
+.hero-text{grid-column:1/6;display:grid;gap:22px;padding-bottom:6px}
+.hero h1{margin:0;font:300 clamp(40px,5.2vw,76px)/1 var(--f-display);letter-spacing:.05em;text-transform:uppercase}
+.hero h1 span{display:block}
+.hero h1 .zh{margin-top:.55em;font:300 .4em/1.2 var(--f-zh);letter-spacing:.5em}
+.roles{margin:0;font:400 12px/1.6 var(--f-body);letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.roles [lang]{display:block;margin-top:4px;font-size:13px;letter-spacing:.3em;text-transform:none}
+.hero-fig{grid-column:6/13;margin:0;justify-self:end;width:fit-content;max-width:100%}
+.hero-fig .frame-static{overflow:hidden;display:flex;justify-content:flex-end}
+.hero-fig img{width:auto;max-width:100%;max-height:min(calc(100vh - 190px),820px);object-fit:contain}
+.hero-cap{max-width:100%}
+@media (min-width:900px){.hero{min-height:calc(100vh - 60px);align-content:center}}
+.hero-cap{margin-top:14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;color:var(--mute)}
+.hero-cap a{text-decoration:none;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.hero-cap [lang]{letter-spacing:.12em}
+.hero-cap .hc-en{font-style:italic;letter-spacing:.02em}
+.hero-cap a:hover .hc-en{text-decoration:underline}
+
+/* chapter thresholds: one composition per room */
+.ch-in{max-width:var(--max);margin-inline:auto;padding:clamp(96px,14vw,208px) var(--gut) clamp(32px,5vw,72px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);align-items:end;position:relative}
+.ch-in::before{content:"";position:absolute;left:var(--gut);right:var(--gut);top:clamp(48px,7vw,104px);height:1px;background:var(--line);transform-origin:left}
+.ch-head h2{margin:0;display:grid;gap:.5em}
+.ch-en{font:300 clamp(30px,4.4vw,64px)/1 var(--f-display);letter-spacing:.06em;text-transform:uppercase;text-wrap:balance}
+.ch-zh{font:300 clamp(15px,1.5vw,21px)/1.2 var(--f-zh);letter-spacing:.5em;color:var(--mute)}
+.ch-thresholds .ch-zh{color:var(--plate-mute)}
+.ch-quote{margin:0;display:grid;gap:10px}
+.ch-quote blockquote{margin:0;font:300 clamp(16px,1.5vw,20px)/1.8 var(--f-zh);letter-spacing:.14em;color:var(--ink)}
+.ch-quote .tr{font-size:14px;line-height:1.6;color:var(--mute)}
+.ch-quote .tr-mark{font-size:11px;letter-spacing:.06em;color:var(--faint)}
+.ch-quote figcaption{margin-top:6px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.ch-quote figcaption [lang]{display:block;margin-top:2px;letter-spacing:.2em;text-transform:none}
+.ch-intro{display:grid;gap:8px;color:var(--mute);font-size:15px;line-height:1.7}
+.ch-intro p{margin:0;max-width:44ch}
+.ch-intro [lang]{font-size:14px;letter-spacing:.06em}
+.ch-body h2{grid-column:1/8}
+.ch-body .ch-intro{grid-column:9/13}
+.ch-force h2{grid-column:6/13;grid-row:1;text-align:right;justify-items:end}
+.ch-force .ch-intro{grid-column:1/6;grid-row:1}
+.ch-force .ch-in::before{transform-origin:right}
+.ch-thresholds{background:var(--plate);color:var(--plate-ink);margin-top:clamp(96px,14vw,208px)}
+.ch-thresholds .ch-in{min-height:clamp(420px,70vh,720px);align-content:center;padding-block:clamp(72px,10vw,140px)}
+.ch-thresholds .ch-in::before{display:none}
+.ch-thresholds h2{grid-column:3/11;justify-items:center;text-align:center}
+.ch-thresholds .ch-intro{grid-column:4/10;justify-items:center;text-align:center;color:var(--plate-mute)}
+.ch-public h2{grid-column:3/10}
+.ch-public .ch-intro{grid-column:3/9}
+
+/* works */
+.works{display:grid;gap:clamp(88px,13vw,200px);padding-block:clamp(48px,7vw,104px) 0}
+.work{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);align-items:end}
+.frame{grid-row:1;padding:0;border:0;background:var(--frame);cursor:zoom-in;display:block;width:100%;max-width:100%;overflow:hidden;color:inherit}
+.frame img{width:100%;transition:transform 1.6s var(--ease)}
+.frame:hover img{transform:scale(1.012)}
+.label-block{grid-row:1;min-width:0;display:grid;gap:3px;align-content:end}
+.label-block p,.label-block h3,.label-block h4{margin:0}
+.label-block .zh{font:400 15px/1.6 var(--f-zh);letter-spacing:.1em}
+.label-block .en{font:400 12px/1.5 var(--f-display);letter-spacing:.18em;text-transform:uppercase}
+.label-block .en.pinyin{text-transform:none;font-style:italic;letter-spacing:.05em;font-size:14px}
+.label-block .meta{margin-top:8px!important;font-size:12px;letter-spacing:.06em;color:var(--mute)}
+.label-block .meta [lang]{margin-left:.3em;letter-spacing:.1em}
+.label-block.compact .zh{font-size:13px}
+.label-block.compact .en{font-size:11px;letter-spacing:.14em;color:var(--mute)}
+.label-block.compact .en.pinyin{font-size:12px}
+.label-block.compact .meta{margin-top:4px!important;font-size:11px;color:var(--faint)}
+
+.L-a .frame{grid-column:2/8}        .L-a .label-block{grid-column:9/12}
+.L-b .frame{grid-column:6/12}       .L-b .label-block{grid-column:2/5}
+.L-wide-r .frame{grid-column:4/13}  .L-wide-r .label-block{grid-column:1/4}
+.L-wide-l .frame{grid-column:1/10}  .L-wide-l .label-block{grid-column:10/13}
+
+/* duo: a work and its quieter companion */
+.duo figure{margin:0;display:grid;gap:14px;min-width:0;align-content:end}
+.duo .frame,.duo .label-block{grid-row:auto}
+.duo-companion .main{grid-column:2/6}
+.duo-companion .comp{grid-column:8/10}
+.duo-draft .comp{grid-column:2/4}
+.duo-draft .main{grid-column:6/12}
+
+/* Civilized Ruins pair */
+.pair{display:grid;gap:clamp(28px,4vw,52px)}
+.pair-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);align-items:baseline}
+.pair-head h3{grid-column:1/6;margin:0;font:300 clamp(22px,2.4vw,32px)/1.2 var(--f-display);letter-spacing:.12em;text-transform:uppercase}
+.pair-head h3 [lang]{letter-spacing:.3em;margin-right:.6em}
+.pair-head p{grid-column:7/13;margin:0;color:var(--mute);font-size:14px}
+.pair-head p [lang]{display:block;letter-spacing:.08em}
+.pair-grid{overflow-x:clip;overflow-y:visible;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);align-items:end}
+.pair-item{margin:0;display:grid;gap:14px;min-width:0}
+.pair-item .frame,.pair-item .label-block{grid-row:auto}
+.pair-item.p1{grid-column:1/8}
+.pair-item.p2{grid-column:9/13}
+.pair-year{font:200 clamp(36px,4.6vw,72px)/.9 var(--f-display);color:var(--mute);margin-bottom:6px!important}
+
+/* Float series: three works, one title */
+.series{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:clamp(28px,4vw,56px) var(--gap)}
+.series-title{grid-column:1/-1;margin:0;font:300 clamp(28px,3.6vw,52px)/1 var(--f-display);letter-spacing:.08em;text-transform:uppercase}
+.series-title [lang]{font:200 .45em/1 var(--f-zh);letter-spacing:.45em;margin-left:.5em;vertical-align:middle}
+.series-row{grid-column:1/10;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:7fr 4fr;gap:var(--gap);align-items:end}
+.series-main{grid-column:3/13;display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:var(--gap);align-items:end}
+.series-main .frame,.series-main .label-block{grid-row:1}
+.sec{display:grid;gap:12px;align-content:start;min-width:0}
+.sec .frame,.sec .label-block{grid-row:auto}
+
+/* Additional works: quieter, grouped by relationship */
+.addl{display:grid;gap:clamp(40px,5vw,72px);padding-top:clamp(24px,3vw,40px);border-top:1px solid var(--line)}
+.addl-kicker{margin:0;font:400 11px/1.4 var(--f-body);letter-spacing:.24em;text-transform:uppercase;color:var(--mute)}
+.addl-kicker [lang]{margin-left:.8em;letter-spacing:.32em}
+.group{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px var(--gap)}
+.group-title{grid-column:1/3;margin:0;font:300 13px/1.5 var(--f-display);letter-spacing:.12em;color:var(--ink)}
+.group-title [lang]{display:block;color:var(--mute);letter-spacing:.3em;font-size:12px}
+.group-grid{grid-column:3/13;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px var(--gap)}
+.group .sec .frame{aspect-ratio:4/5;display:flex;align-items:center;justify-content:center}
+.group .sec .frame img{width:100%;height:100%;object-fit:contain}
+.group.relief .group-grid{grid-template-columns:1fr}
+.group.relief .sec{max-width:820px}
+.group.relief .sec .frame{aspect-ratio:auto}
+.group.relief .sec .frame img{height:auto}
+
+/* interlude */
+.interlude{background:var(--plate);color:var(--plate-ink);margin-top:clamp(88px,13vw,200px)}
+.interlude-in{max-width:var(--max);margin-inline:auto;padding:clamp(56px,9vw,128px) var(--gut);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap)}
+.interlude-kicker{grid-column:1/5;margin:0;font:300 clamp(18px,2vw,26px)/1.2 var(--f-display);letter-spacing:.18em;text-transform:uppercase}
+.interlude-kicker [lang]{display:block;margin-top:.7em;font:200 .72em/1 var(--f-zh);letter-spacing:.45em;color:var(--plate-mute)}
+.interlude blockquote{grid-column:6/12;margin:0;font:300 clamp(18px,2vw,28px)/1.55 var(--f-display);letter-spacing:.06em;text-transform:uppercase;text-wrap:balance}
+
+/* In the Round signpost: a quiet link to the room reserved for 3D viewing */
+.round-sign{margin-top:clamp(120px,16vw,220px);border-block:1px solid var(--line)}
+.round-link{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;align-items:center;gap:12px clamp(20px,3vw,48px);padding-block:clamp(36px,5vw,64px);text-decoration:none;color:inherit}
+.rs-title{font:200 clamp(26px,3.2vw,44px)/1 var(--f-display);letter-spacing:.12em;text-transform:uppercase}
+.rs-title [lang]{display:block;margin-top:.6em;font:300 .38em/1 var(--f-zh);letter-spacing:.55em;color:var(--mute)}
+.rs-note{font-size:11px;line-height:2;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);text-align:right}
+.rs-note [lang]{display:block;letter-spacing:.3em;color:var(--faint)}
+.rs-go{font:200 28px/1 var(--f-display);color:var(--mute);transition:transform .6s var(--ease),color .4s}
+.round-link:hover .rs-go{transform:translateX(6px);color:var(--ink)}
+.round-link:hover .rs-title{color:var(--mute)}
+.mini-plinth{position:relative;width:72px;height:18px;border:1px solid var(--line);border-radius:50%}
+/* a point of light circling the plinth: two eased axes a quarter-cycle apart trace an ellipse */
+.mini-light{position:absolute;top:50%;left:0;width:0;height:0;animation:ox 7s ease-in-out infinite alternate}
+.mini-light::after{content:"";position:absolute;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--ink);box-shadow:0 0 12px 3px color-mix(in srgb,var(--ink) 22%,transparent);animation:oy 7s ease-in-out -3.5s infinite alternate}
+@keyframes ox{from{left:0%}to{left:100%}}
+@keyframes oy{from{translate:0 -9px;opacity:.25}to{translate:0 9px;opacity:.75}}
+
+/* about */
+.history{display:grid;gap:14px}
+.history-title{margin:0;font:400 11px/1.4 var(--f-body);letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+.history-title [lang]{margin-left:.8em;letter-spacing:.32em}
+.history-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.history-list li{display:grid;grid-template-columns:6.4em 10em minmax(0,1fr);gap:4px var(--gap);padding:11px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.55}
+.h-year{color:var(--mute);letter-spacing:.04em}
+.h-place{color:var(--mute)}
+.h-place [lang],.h-what>[lang]{display:block;font-size:12.5px;letter-spacing:.08em;color:var(--faint)}
+.h-what i{font-style:italic}
+.h-what [lang].inline{display:inline;font-size:14px;color:var(--ink);letter-spacing:.04em}
+.history-foot{margin:4px 0 0;font-size:12.5px;color:var(--mute);line-height:1.7}
+
+.about{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);padding-block:clamp(96px,12vw,176px);align-items:start}
+.sec-title{margin:0 0 8px;grid-column:1/-1;font:300 clamp(22px,2.6vw,34px)/1.1 var(--f-display);letter-spacing:.22em;text-transform:uppercase;display:flex;gap:.8em;align-items:baseline;flex-wrap:wrap}
+.sec-title [lang]{font:200 .62em/1 var(--f-zh);letter-spacing:.42em;color:var(--mute)}
+.about figure{grid-column:1/4;margin:0}
+.about figure img{width:100%;filter:grayscale(1)}
+.about .bio{grid-column:5/12;min-width:0;display:grid;gap:36px}
+.about .lead{margin:0;font-size:18px;line-height:1.6;max-width:52ch}
+.about .lead [lang]{display:block;margin-top:6px;font-size:15px;letter-spacing:.06em;color:var(--mute)}
+.about blockquote{margin:0;font:300 18px/1.65 var(--f-display);max-width:56ch;padding-left:20px;border-left:1px solid var(--line)}
+details{border-top:1px solid var(--line);padding-block:14px 4px}
+details:last-child{border-bottom:1px solid var(--line);padding-bottom:14px}
+summary{cursor:pointer;list-style:none;font:400 11px/1.4 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--mute);display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:14px;line-height:1;transition:transform .4s var(--ease)}
+details[open] summary::after{transform:rotate(45deg)}
+summary [lang]{letter-spacing:.3em;margin-left:.6em}
+.details-body{padding-top:14px;display:grid;gap:18px;font-size:14px;max-width:60ch}
+.details-body p,.details-body ul{margin:0}
+.details-body ul{padding:0;list-style:none;display:grid;gap:4px}
+.details-body h3{margin:0 0 4px;font:400 11px/1.4 var(--f-body);letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.who{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:4px!important}
+
+/* contact */
+.contact{background:var(--plate);color:var(--plate-ink)}
+.contact .wrap{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);padding-block:clamp(72px,10vw,140px)}
+.contact .sec-title [lang]{color:var(--plate-mute)}
+.direct{grid-column:1/6;display:grid;gap:18px;align-content:start}
+.direct a.mail{font:300 clamp(22px,2.8vw,38px)/1.15 var(--f-display);letter-spacing:.04em;overflow-wrap:anywhere;text-decoration:none;border-bottom:1px solid var(--plate-line);padding-bottom:6px;justify-self:start}
+.direct a.mail:hover{border-color:var(--plate-ink)}
+.direct p{margin:0;color:var(--plate-mute);font-size:14px}
+.direct p [lang]{display:block;letter-spacing:.06em}
+.direct .enq{color:var(--plate-ink);font-size:15px}
+.direct .enq [lang]{font-size:16px;letter-spacing:.2em;margin-bottom:4px}
+.direct .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.direct .links a{font:400 11px/1.4 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--plate-mute)}
+form{grid-column:7/13;display:grid;gap:22px}
+.field{display:grid;gap:6px}
+.field label{font:400 11px/1.4 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:var(--plate-mute)}
+.field label [lang]{letter-spacing:.3em;margin-left:.6em}
+.field input,.field textarea{font:300 17px/1.5 var(--f-body);color:var(--plate-ink);background:transparent;border:0;border-bottom:1px solid var(--plate-line);padding:8px 0;border-radius:0;width:100%;transition:border-color .3s}
+.field textarea{min-height:132px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--plate-ink)}
+.field input:focus-visible,.field textarea:focus-visible{outline:1px solid var(--plate-ink);outline-offset:6px}
+.field input:user-invalid,.field textarea:user-invalid{border-color:#E6A1A1}
+.form-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn{font:400 11px/1 var(--f-body);letter-spacing:.2em;text-transform:uppercase;background:none;color:inherit;border:1px solid currentColor;padding:12px 18px;cursor:pointer;transition:background .3s,color .3s}
+.contact .btn:hover{background:var(--plate-ink);color:var(--plate)}
+.btn.icon{width:44px;height:44px;padding:0;border-radius:50%;display:inline-grid;place-items:center;border-color:color-mix(in srgb,currentColor 45%,transparent)}
+.btn.icon svg{fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.btn.icon:hover{border-color:currentColor}
+.btn.icon.send{width:52px;height:52px}
+.btn.icon.send svg{transition:transform .5s var(--ease)}
+.btn.icon.send:hover svg{transform:translateX(3px)}
+.status .btn.icon{width:30px;height:30px;vertical-align:middle;margin-inline:6px}
+.status textarea{display:block;width:100%;margin-top:10px;min-height:96px;background:transparent;color:var(--plate-ink);border:1px solid var(--plate-line);font:300 13px/1.5 var(--f-body);padding:8px}
+.status{margin:0;font-size:14px;color:var(--plate-ink);min-height:1.5em}
+.status [lang]{display:block;color:var(--plate-mute)}
+.status .btn{padding:6px 10px;margin-inline:4px}
+footer{background:var(--plate);color:var(--plate-mute);border-top:1px solid var(--plate-line)}
+footer .wrap{padding-block:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 24px;font-size:12px;letter-spacing:.08em}
+
+/* viewer */
+dialog{border:0;padding:0;margin:0;max-width:none;max-height:none;width:100%;height:100%;background:var(--paper);color:var(--ink)}
+dialog::backdrop{background:var(--paper)}
+dialog{opacity:0;transition:opacity .45s var(--ease),overlay .45s allow-discrete,display .45s allow-discrete}
+dialog[open]{opacity:1}
+@starting-style{dialog[open]{opacity:0}}
+.lb-stage img.enter-open{animation:lb-open .9s var(--ease) both}
+.lb-stage img.enter-next{animation:lb-next .7s var(--ease) both}
+.lb-stage img.enter-prev{animation:lb-prev .7s var(--ease) both}
+.lb-stage img.enter-view{animation:lb-view .5s var(--ease) both}
+@keyframes lb-open{from{opacity:0;clip-path:inset(6% 8% 6% 8%);scale:.985}}
+@keyframes lb-next{from{opacity:0;translate:32px 0}}
+@keyframes lb-prev{from{opacity:0;translate:-32px 0}}
+@keyframes lb-view{from{opacity:0}}
+.lb-side.swap{animation:lb-side .6s var(--ease) both}
+@keyframes lb-side{from{opacity:0;translate:0 10px}}
+.lb{height:100%;display:grid;grid-template-columns:minmax(0,1fr) 340px;grid-template-rows:auto minmax(0,1fr);gap:0 clamp(24px,3vw,48px);padding:env(safe-area-inset-top,0px) var(--gut) env(safe-area-inset-bottom,0px)}
+.lb-bar{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;min-height:64px;gap:16px;border-bottom:1px solid var(--line)}
+.lb-stage{min-height:0;display:flex;align-items:center;justify-content:center;padding-block:24px}
+.lb-stage img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.lb-side{min-height:0;overflow:auto;padding-block:28px;display:flex;flex-direction:column;gap:26px}
+.lb-side .zh{margin:0;font:400 20px/1.5 var(--f-zh);letter-spacing:.1em}
+.lb-side .en{margin:4px 0 0;font:400 15px/1.4 var(--f-display);letter-spacing:.14em;text-transform:uppercase}
+.lb-side .en.pinyin{text-transform:none;font-style:italic;letter-spacing:.05em}
+.lb-side .note{margin:6px 0 0;font-size:12px;color:var(--mute)}
+.lb-side dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:14px}
+.lb-side dt{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);padding-top:3px}
+.lb-side dd{margin:0}
+.lb-side dd [lang]{display:block;color:var(--mute);font-size:13px;letter-spacing:.05em}
+.lb-side dd.tbc{color:var(--mute)}
+.lb-side ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.lb-views{display:flex;gap:8px;flex-wrap:wrap}
+.lb-views button{padding:0;border:1px solid transparent;background:var(--frame);width:56px;height:56px;cursor:pointer}
+.lb-views button[aria-pressed="true"]{border-color:var(--ink)}
+.lb-views img{width:100%;height:100%;object-fit:cover}
+.lb-nav{display:flex;gap:8px;flex-wrap:wrap}
+.lb .btn:hover{background:var(--ink);color:var(--paper)}
+.lb-src{font-size:12px;color:var(--mute);margin:auto 0 0!important;padding-top:12px}
+
+/* ---------- motion: 靜中有動 ---------- */
+@keyframes unveil{from{clip-path:inset(7% 9% 7% 9%);scale:1.05}}
+@keyframes rise{from{opacity:.15;translate:0 14px}}
+.hero-fig img{animation:unveil 1.8s var(--ease) both}
+.hero h1 span{animation:rise 1.2s var(--ease) both}
+.hero h1 span:nth-child(2){animation-delay:.12s}
+.hero h1 .zh{animation-delay:.3s}
+@supports (animation-timeline: view()){
+  /* featured works: the frame opens like an aperture, once */
+  @keyframes aperture{from{clip-path:inset(5% 7% 5% 7%);scale:1.035}}
+  .work .frame img,.pair-item .frame img,.series-main .frame img{animation:aperture linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
+  /* additional works: the group simply settles, quieter than the featured works */
+  @keyframes settle{from{opacity:.25}}
+  .addl,.series-row{animation:settle linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
+  .series-row .sec:nth-child(2){animation:settle linear both;animation-timeline:view();animation-range:entry 15% cover 40%}
+  /* chapter thresholds: a floor line is drawn, then the title's spacing settles as you arrive */
+  @keyframes draw{from{transform:scaleX(0)}}
+  .ch-in::before{animation:draw linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+  @keyframes track{from{letter-spacing:.34em;opacity:.15}}
+  .ch-en{animation:track linear both;animation-timeline:view();animation-range:entry 5% cover 38%}
+  @keyframes quiet-in{from{opacity:0;translate:0 14px}}
+  .ch-zh,.ch-intro{animation:quiet-in linear both;animation-timeline:view();animation-range:entry 20% cover 45%}
+  /* the Gate room opens like a doorway */
+  @keyframes doorway{from{clip-path:inset(0 calc(50% - 90px))}}
+  .ch-thresholds{animation:doorway linear both;animation-timeline:view();animation-range:entry 0% cover 50%}
+  /* Civilized Ruins: 1990 and 2022 move toward each other */
+  @keyframes from-left{from{translate:-48px 0;opacity:.2}}
+  @keyframes from-right{from{translate:48px 0;opacity:.2}}
+  .pair-item.p1{animation:from-left linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+  .pair-item.p2{animation:from-right linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* narrow */
+@media (max-width:899px){
+  .hero-text,.hero-fig{grid-column:1/-1}
+  .hero-fig{order:-1}
+  .ch-head h2,.ch-head .ch-intro{grid-column:1/-1!important;grid-row:auto!important;text-align:left;justify-items:start}
+  .ch-thresholds h2,.ch-thresholds .ch-intro{text-align:center;justify-items:center}
+  .work .frame,.work .label-block{grid-column:1/-1!important;grid-row:auto!important}
+  .duo-companion .main{grid-column:1/9!important}
+  .duo-companion .comp{grid-column:7/13!important}
+  .duo-draft .comp{grid-column:1/7!important;grid-row:2}
+  .duo-draft .main{grid-column:1/-1!important;grid-row:1}
+  .pair-head h3,.pair-head p{grid-column:1/-1}
+  .pair-item.p1,.pair-item.p2{grid-column:1/-1}
+  .pair-item.p2{width:78%;justify-self:end}
+  .series-row{grid-column:1/-1}
+  .series-main{grid-column:1/-1;grid-template-columns:1fr}
+  .series-main .frame,.series-main .label-block{grid-row:auto}
+  .group-title,.group-grid{grid-column:1/-1}
+  .group-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .interlude-kicker,.interlude blockquote{grid-column:1/-1}
+  .about figure{grid-column:1/6}
+  .about .bio{grid-column:1/-1}
+  .history-list li{grid-template-columns:5.6em minmax(0,1fr)}
+  .history-list .h-what{grid-column:2}
+  .direct,form{grid-column:1/-1}
+  form{margin-top:24px}
+  .round-link{grid-template-columns:auto minmax(0,1fr);row-gap:20px}
+  .rs-note{grid-column:1/-1;text-align:left}
+  .rs-go{display:none}
+  .lb{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto}
+  .lb-stage{padding-block:12px}
+  .lb-side{max-height:46vh;padding-block:16px;border-top:1px solid var(--line);gap:18px}
+}
+@media (max-width:520px){
+  html{scroll-padding-top:108px}
+  .nav{gap:2px 13px}
+  .nav a{font-size:10px;letter-spacing:.14em}
+  .ch-thresholds .ch-in{min-height:0;padding-block:96px 88px}
+  .about figure{grid-column:1/9}
+}
+</style>
+</head>
+<body>
+
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top">Xikang Lai <span lang="zh-Hant">賴錫康</span></a>
+    <nav class="nav" aria-label="Exhibition"><a href="#body">Body</a><a href="#force">Force</a><a href="#thresholds">Thresholds</a><a href="#public">Public</a><a href="in-the-round.html" class="nav-round">In the Round</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="wrap hero" aria-label="Introduction">
+    <div class="hero-text">
+      <h1><span>Xikang Lai</span><span class="zh" lang="zh-Hant">賴錫康</span></h1>
+      <p class="roles">Artist · Sculptor · Educator<span lang="zh-Hant">藝術家・雕塑家・教育者</span></p>
+    </div>
+    <figure class="hero-fig">
+      <div class="frame-static"><img src="assets/img/thumb/gate-of-spirit.jpg" srcset="assets/img/thumb/gate-of-spirit.jpg 800w, assets/img/gate-of-spirit.jpg 1600w" sizes="(min-width: 900px) 46vw, 100vw" width="1405" height="1600" alt="The Gate of Spirit, stainless steel, 2025" fetchpriority="high" decoding="async"></div>
+      <figcaption class="hero-cap"><a href="#gate-of-spirit"><span lang="zh-Hant">意志之門</span><span class="hc-en">The Gate of Spirit</span></a><span class="num">2025</span></figcaption>
+    </figure>
+  </section>
+
+<section class="chapter" aria-labelledby="body-h">
+<header class="ch-head ch-body" id="body">
+  <div class="ch-in">
+    <h2 id="body-h"><span class="ch-en">Body &amp; Gesture</span><span class="ch-zh" lang="zh-Hant">身體與姿態</span></h2>
+    <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">我以為舞蹈是運動的雕塑，而雕塑則是靜止的舞蹈。</blockquote><p class="tr">I think of dance as sculpture in motion, and sculpture as dance at rest. <span class="tr-mark">(translation)</span></p><figcaption>Xikang Lai, notes on Dialogue of the Wind<span lang="zh-Hant">賴錫康《風之對話》創作筆記</span></figcaption></figure>
+  </div>
+</header>
+<div class="wrap works">
+<article class="work L-a" id="dialogue-of-the-wind">
+  <button class="frame" type="button" data-i="0" data-v="0" aria-label="Open details: Dialogue of the Wind, cupronickel, 2007"><img src="assets/img/thumb/dialogue-of-the-wind.jpg" srcset="assets/img/thumb/dialogue-of-the-wind.jpg 800w, assets/img/dialogue-of-the-wind.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1300" height="1600" alt="Dialogue of the Wind, cupronickel, 2007" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">風之對話</p>
+  <h3 class="en">Dialogue of the Wind</h3>
+  <p class="meta"><span class="num">2007</span> · Cupronickel <span lang="zh-Hant">白銅</span></p>
+</div>
+</article>
+<article class="work L-b" id="curved-stretching">
+  <button class="frame" type="button" data-i="1" data-v="0" aria-label="Open details: The Beauty of Curved Stretching (Part 1), white marble, 2010"><img src="assets/img/thumb/curved-stretching.jpg" srcset="assets/img/thumb/curved-stretching.jpg 800w, assets/img/curved-stretching.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1352" height="1600" alt="The Beauty of Curved Stretching (Part 1), white marble, 2010" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">曲伸之美（之一）</p>
+  <h3 class="en">The Beauty of Curved Stretching (Part 1)</h3>
+  <p class="meta"><span class="num">2010</span> · White marble <span lang="zh-Hant">漢白玉</span></p>
+</div>
+</article>
+<article class="work L-wide-r" id="lying-figure">
+  <button class="frame" type="button" data-i="2" data-v="0" aria-label="Open details: Lying Figure, white marble, 2012"><img src="assets/img/thumb/lying-figure-b.jpg" srcset="assets/img/thumb/lying-figure-b.jpg 800w, assets/img/lying-figure-b.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1600" height="778" alt="Lying Figure, white marble, 2012" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">側臥的人體</p>
+  <h3 class="en">Lying Figure</h3>
+  <p class="meta"><span class="num">2012</span> · White marble <span lang="zh-Hant">漢白玉</span></p>
+</div>
+</article>
+</div>
+<aside class="interlude" aria-label="Midsummer Night">
+  <div class="interlude-in">
+    <p class="interlude-kicker">Midsummer Night <span lang="zh-Hant">仲夏夜</span></p>
+    <blockquote>Last earily summer, I was immersed in hot fantasies, no, dreams, and I tried to express this feeling with sculpture.</blockquote>
+  </div>
+</aside>
+<div class="wrap works">
+<article class="work L-wide-l" id="midsummer-night">
+  <button class="frame" type="button" data-i="3" data-v="0" aria-label="Open details: Midsummer Night (Part 1), bronze, 2015"><img src="assets/img/thumb/midsummer-night.jpg" srcset="assets/img/thumb/midsummer-night.jpg 800w, assets/img/midsummer-night.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1600" height="905" alt="Midsummer Night (Part 1), bronze, 2015" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">仲夏夜（之一）</p>
+  <h3 class="en">Midsummer Night (Part 1)</h3>
+  <p class="meta"><span class="num">2015</span> · Bronze <span lang="zh-Hant">青銅</span></p>
+</div>
+</article>
+<div class="addl">
+  <p class="addl-kicker">Additional works <span lang="zh-Hant">延伸作品</span></p>
+  <section class="group " aria-label="Figures, 2007–2019">
+  <h3 class="group-title">Figures, 2007–2019 <span lang="zh-Hant">人體 2007–2019</span></h3>
+  <ul class="group-grid n4"><li class="sec" id="eagle-city-night"><button class="frame" type="button" data-i="4" data-v="0" aria-label="Open details: An Eagle Flying in the Night Sky of the City, cupronickel, 2007"><img src="assets/img/thumb/eagle-city-night.jpg" srcset="assets/img/thumb/eagle-city-night.jpg 800w, assets/img/eagle-city-night.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1091" height="1600" alt="An Eagle Flying in the Night Sky of the City, cupronickel, 2007" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">城市夜空的鷹</p>
+  <h4 class="en">An Eagle Flying in the Night Sky of the City</h4>
+  <p class="meta"><span class="num">2007</span> · Cupronickel <span lang="zh-Hant">白銅</span></p>
+</div></li><li class="sec" id="heaven-earth"><button class="frame" type="button" data-i="5" data-v="0" aria-label="Open details: Between Heaven and Earth"><img src="assets/img/thumb/heaven-earth.jpg" srcset="assets/img/thumb/heaven-earth.jpg 800w, assets/img/heaven-earth.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1066" height="1600" alt="Between Heaven and Earth" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">天與地</p>
+  <h4 class="en">Between Heaven and Earth</h4>
+
+</div></li><li class="sec" id="cape-good-hope"><button class="frame" type="button" data-i="6" data-v="0" aria-label="Open details: 地平線上的好望角, bronze, 2015"><img src="assets/img/thumb/cape-good-hope.jpg" srcset="assets/img/thumb/cape-good-hope.jpg 800w, assets/img/cape-good-hope.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="1178" alt="地平線上的好望角, bronze, 2015" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">地平線上的好望角</p>
+  <h4 class="en pinyin">Dipingxian shang de Haowangjiao</h4>
+  <p class="meta"><span class="num">2015</span> · Bronze <span lang="zh-Hant">青銅</span></p>
+</div></li><li class="sec" id="rose"><button class="frame" type="button" data-i="7" data-v="0" aria-label="Open details: 玫瑰, clay, 2019"><img src="assets/img/thumb/rose.jpg" srcset="assets/img/thumb/rose.jpg 800w, assets/img/rose.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1016" height="1600" alt="玫瑰, clay, 2019" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">玫瑰</p>
+  <h4 class="en pinyin">Meigui</h4>
+  <p class="meta"><span class="num">2019</span> · Clay <span lang="zh-Hant">泥塑</span></p>
+</div></li></ul>
+</section>
+</div>
+</div>
+</section>
+<section class="chapter" aria-labelledby="force-h">
+<header class="ch-head ch-force" id="force">
+  <div class="ch-in">
+    <h2 id="force-h"><span class="ch-en">Force &amp; Equilibrium</span><span class="ch-zh" lang="zh-Hant">力與平衡</span></h2>
+    <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">平衡是美的，它能把你從不安帶回到平靜。</blockquote><p class="tr">Balance is beautiful; it can bring you back from unease to calm. <span class="tr-mark">(translation)</span></p><figcaption>Xikang Lai, notes on Balance<span lang="zh-Hant">賴錫康《平衡》創作筆記</span></figcaption></figure>
+  </div>
+</header>
+<div class="wrap works">
+<article class="work L-wide-r" id="balance">
+  <button class="frame" type="button" data-i="8" data-v="0" aria-label="Open details: Balance, cupronickel, 2010"><img src="assets/img/thumb/balance.jpg" srcset="assets/img/thumb/balance.jpg 800w, assets/img/balance.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1600" height="1096" alt="Balance, cupronickel, 2010" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">平衡</p>
+  <h3 class="en">Balance</h3>
+  <p class="meta"><span class="num">2010</span> · Cupronickel <span lang="zh-Hant">白銅</span></p>
+</div>
+</article>
+<article class="work duo duo-companion">
+  <figure class="duo-a main" id="spring">
+  <button class="frame" type="button" data-i="9" data-v="0" aria-label="Open details: Spring, original in cupronickel, 2013"><img src="assets/img/thumb/spring.jpg" srcset="assets/img/thumb/spring.jpg 800w, assets/img/spring.jpg 1600w" sizes="(min-width: 900px) 40vw, 100vw" width="1103" height="1600" alt="Spring, original in cupronickel, 2013" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">春</p>
+  <h3 class="en">Spring</h3>
+  <p class="meta"><span class="num">2013</span> · Original in cupronickel <span lang="zh-Hant">原作 白銅</span></p>
+</div>
+</figure>
+  <figure class="duo-b comp" id="winter-spring">
+  <button class="frame" type="button" data-i="10" data-v="0" aria-label="Open details: 冬·春, bronze, 2015"><img src="assets/img/thumb/winter-spring.jpg" srcset="assets/img/thumb/winter-spring.jpg 800w, assets/img/winter-spring.jpg 1600w" sizes="(min-width: 900px) 18vw, 50vw" width="911" height="1600" alt="冬·春, bronze, 2015" loading="lazy" decoding="async"></button>
+  <div class="label-block compact">
+  <p class="zh" lang="zh-Hant">冬·春</p>
+  <h4 class="en pinyin">Dong · Chun</h4>
+  <p class="meta"><span class="num">2015</span> · Bronze <span lang="zh-Hant">青銅</span></p>
+</div>
+</figure>
+</article>
+<article class="work L-wide-l" id="resultant-force">
+  <button class="frame" type="button" data-i="11" data-v="0" aria-label="Open details: Resultant Force, cast iron, 2015"><img src="assets/img/thumb/resultant-force.jpg" srcset="assets/img/thumb/resultant-force.jpg 800w, assets/img/resultant-force.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1600" height="923" alt="Resultant Force, cast iron, 2015" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">合力</p>
+  <h3 class="en">Resultant Force</h3>
+  <p class="meta"><span class="num">2015</span> · Cast iron <span lang="zh-Hant">鑄鐵</span></p>
+</div>
+</article>
+<section class="series" aria-labelledby="float-h">
+  <h3 class="series-title" id="float-h">Float <span lang="zh-Hant">水天</span></h3>
+  <ul class="series-row">
+    <li class="sec" id="float-1"><button class="frame" type="button" data-i="12" data-v="0" aria-label="Open details: Float (Part 1), bronze"><img src="assets/img/thumb/float-1.jpg" srcset="assets/img/thumb/float-1.jpg 800w, assets/img/float-1.jpg 1600w" sizes="(min-width: 900px) 30vw, 50vw" width="1600" height="1227" alt="Float (Part 1), bronze" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">水天</p>
+  <h4 class="en">Float (Part 1)</h4>
+  <p class="meta">Bronze <span lang="zh-Hant">青銅</span></p>
+</div></li>
+    <li class="sec" id="float-2"><button class="frame" type="button" data-i="13" data-v="0" aria-label="Open details: Float (Part 2), bronze"><img src="assets/img/thumb/float-2.jpg" srcset="assets/img/thumb/float-2.jpg 800w, assets/img/float-2.jpg 1600w" sizes="(min-width: 900px) 20vw, 50vw" width="1183" height="1600" alt="Float (Part 2), bronze" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">水天Ⅱ</p>
+  <h4 class="en">Float (Part 2)</h4>
+  <p class="meta">Bronze <span lang="zh-Hant">青銅</span></p>
+</div></li>
+  </ul>
+  <article class="series-main" id="float-part-3"><button class="frame" type="button" data-i="14" data-v="0" aria-label="Open details: Float (Part 3), bronze, 2024"><img src="assets/img/thumb/float-part-3.jpg" srcset="assets/img/thumb/float-part-3.jpg 800w, assets/img/float-part-3.jpg 1600w" sizes="(min-width: 900px) 70vw, 100vw" width="1600" height="1025" alt="Float (Part 3), bronze, 2024" loading="lazy" decoding="async"></button><div class="label-block">
+  <p class="zh" lang="zh-Hant">水天（之三）</p>
+  <h3 class="en">Float (Part 3)</h3>
+  <p class="meta"><span class="num">2024</span> · Bronze <span lang="zh-Hant">青銅</span></p>
+</div></article>
+</section>
+</div>
+</section>
+<section class="chapter chapter-gate" aria-labelledby="thresholds-h">
+<header class="ch-head ch-thresholds" id="thresholds">
+  <div class="ch-in">
+    <h2 id="thresholds-h"><span class="ch-en">Thresholds &amp; Space</span><span class="ch-zh" lang="zh-Hant">門檻與空間</span></h2>
+    <div class="ch-intro"><p>From Civilized Ruins (1990) to the Gate series (2022–2025).</p><p lang="zh-Hant">從《廢墟》（1990）到「門系列」（2022–2025）。</p></div>
+  </div>
+</header>
+<div class="wrap works">
+<section class="pair" aria-labelledby="ruins-h">
+  <header class="pair-head">
+    <h3 id="ruins-h"><span lang="zh-Hant">廢墟</span> Civilized Ruins</h3>
+  </header>
+  <div class="pair-grid"><figure class="pair-item p1" id="civilized-ruins-1990">
+  <button class="frame" type="button" data-i="15" data-v="0" aria-label="Open details: Civilized Ruins, glass-fibre reinforced plastic, stainless steel, 1990"><img src="assets/img/thumb/civilized-ruins-1990.jpg" srcset="assets/img/thumb/civilized-ruins-1990.jpg 800w, assets/img/civilized-ruins-1990.jpg 1600w" sizes="(min-width: 900px) 45vw, 100vw" width="1600" height="1200" alt="Civilized Ruins, glass-fibre reinforced plastic, stainless steel, 1990" loading="lazy" decoding="async"></button>
+  <figcaption class="label-block"><p class="pair-year num">1990</p><p class="meta">Glass-fibre reinforced plastic, stainless steel <span lang="zh-Hant">玻璃鋼、不鏽鋼</span></p></figcaption>
+</figure><figure class="pair-item p2" id="civilized-ruins">
+  <button class="frame" type="button" data-i="16" data-v="0" aria-label="Open details: Civilized Ruins, bronze, 2022"><img src="assets/img/thumb/civilized-ruins.jpg" srcset="assets/img/thumb/civilized-ruins.jpg 800w, assets/img/civilized-ruins.jpg 1600w" sizes="(min-width: 900px) 45vw, 100vw" width="1234" height="1600" alt="Civilized Ruins, bronze, 2022" loading="lazy" decoding="async"></button>
+  <figcaption class="label-block"><p class="pair-year num">2022</p><p class="zh" lang="zh-Hant">廢墟—和平之門（門系列之一）</p><p class="meta">Bronze <span lang="zh-Hant">青銅</span></p></figcaption>
+</figure></div>
+</section>
+<article class="work L-b" id="gate-of-spirit">
+  <button class="frame" type="button" data-i="17" data-v="0" aria-label="Open details: The Gate of Spirit, stainless steel, carbon lacquer, 2025"><img src="assets/img/thumb/gate-of-spirit-b.jpg" srcset="assets/img/thumb/gate-of-spirit-b.jpg 800w, assets/img/gate-of-spirit-b.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1444" height="1600" alt="The Gate of Spirit, stainless steel, carbon lacquer, 2025" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">意志之門（門系列之二）</p>
+  <h3 class="en">The Gate of Spirit</h3>
+  <p class="meta"><span class="num">2025</span> · Stainless steel, carbon lacquer <span lang="zh-Hant">不鏽鋼 炭漆</span></p>
+</div>
+</article>
+<article class="work duo duo-draft">
+  <figure class="duo-a comp" id="gate-of-awakening-draft">
+  <button class="frame" type="button" data-i="18" data-v="0" aria-label="Open details: The Gate of Awakening (Draft), bronze, 2024"><img src="assets/img/thumb/gate-of-awakening-draft.jpg" srcset="assets/img/thumb/gate-of-awakening-draft.jpg 800w, assets/img/gate-of-awakening-draft.jpg 1600w" sizes="(min-width: 900px) 18vw, 50vw" width="1200" height="1600" alt="The Gate of Awakening (Draft), bronze, 2024" loading="lazy" decoding="async"></button>
+  <div class="label-block compact">
+  <p class="zh" lang="zh-Hant">覺醒之門（門系列之三手稿）</p>
+  <h4 class="en">The Gate of Awakening (Draft)</h4>
+  <p class="meta"><span class="num">2024</span> · Bronze <span lang="zh-Hant">青銅</span></p>
+</div>
+</figure>
+  <figure class="duo-b main" id="gate-of-awakening">
+  <button class="frame" type="button" data-i="19" data-v="0" aria-label="Open details: The Gate of Awakening, steel plate, 2025"><img src="assets/img/thumb/gate-of-awakening.jpg" srcset="assets/img/thumb/gate-of-awakening.jpg 800w, assets/img/gate-of-awakening.jpg 1600w" sizes="(min-width: 900px) 40vw, 100vw" width="1287" height="1600" alt="The Gate of Awakening, steel plate, 2025" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">覺醒之門（門系列之三）</p>
+  <h3 class="en">The Gate of Awakening</h3>
+  <p class="meta"><span class="num">2025</span> · Steel plate <span lang="zh-Hant">鋼板</span></p>
+</div>
+</figure>
+</article>
+<article class="work L-wide-r" id="gate-of-chaos">
+  <button class="frame" type="button" data-i="20" data-v="0" aria-label="Open details: The Gate of Chaos, steel plate, 2025"><img src="assets/img/thumb/gate-of-chaos.jpg" srcset="assets/img/thumb/gate-of-chaos.jpg 800w, assets/img/gate-of-chaos.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1600" height="1072" alt="The Gate of Chaos, steel plate, 2025" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <p class="zh" lang="zh-Hant">混沌之門（門系列之四）</p>
+  <h3 class="en">The Gate of Chaos</h3>
+  <p class="meta"><span class="num">2025</span> · Steel plate <span lang="zh-Hant">鋼板</span></p>
+</div>
+</article>
+</div>
+</section>
+<section class="chapter" aria-labelledby="public-h">
+<header class="ch-head ch-public" id="public">
+  <div class="ch-in">
+    <h2 id="public-h"><span class="ch-en">Public Works &amp; Archive</span><span class="ch-zh" lang="zh-Hant">公共藝術與文獻</span></h2>
+    <div class="ch-intro"><p>Monuments and reliefs in China and South Korea, 2000–2018.</p><p lang="zh-Hant">中國與韓國的紀念像與浮雕，2000–2018。</p></div>
+  </div>
+</header>
+<div class="wrap works">
+<article class="work L-a" id="lan-gui-teng-fang">
+  <button class="frame" type="button" data-i="21" data-v="0" aria-label="Open details: 蘭桂騰芳, bronze, 2018"><img src="assets/img/thumb/lan-gui-teng-fang.jpg" srcset="assets/img/thumb/lan-gui-teng-fang.jpg 800w, assets/img/lan-gui-teng-fang.jpg 1600w" sizes="(min-width: 900px) 60vw, 100vw" width="1200" height="1600" alt="蘭桂騰芳, bronze, 2018" loading="lazy" decoding="async"></button>
+  <div class="label-block">
+  <h3 class="zh" lang="zh-Hant">蘭桂騰芳</h3>
+  <p class="meta"><span class="num">2018</span> · Bronze <span lang="zh-Hant">青銅</span></p>
+</div>
+</article>
+<div class="addl">
+  <p class="addl-kicker">Additional works <span lang="zh-Hant">延伸作品</span></p>
+  <section class="group " aria-label="Historical figures">
+  <h3 class="group-title">Historical figures <span lang="zh-Hant">歷史人物</span></h3>
+  <ul class="group-grid n4"><li class="sec" id="an-jung-geun"><button class="frame" type="button" data-i="22" data-v="0" aria-label="Open details: An Jung-geun, bronze"><img src="assets/img/thumb/an-jung-geun.jpg" srcset="assets/img/thumb/an-jung-geun.jpg 800w, assets/img/an-jung-geun.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1200" height="1600" alt="An Jung-geun, bronze" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">安重根</p>
+  <h4 class="en">An Jung-geun</h4>
+  <p class="meta">Bronze <span lang="zh-Hant">青銅</span></p>
+</div></li><li class="sec" id="sun-yat-sen"><button class="frame" type="button" data-i="23" data-v="0" aria-label="Open details: Sun Yat-sen, granite, 2006"><img src="assets/img/thumb/sun-yat-sen.jpg" srcset="assets/img/thumb/sun-yat-sen.jpg 800w, assets/img/sun-yat-sen.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="949" height="1600" alt="Sun Yat-sen, granite, 2006" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">孫中山</p>
+  <h4 class="en">Sun Yat-sen</h4>
+  <p class="meta"><span class="num">2006</span> · Granite <span lang="zh-Hant">花崗石</span></p>
+</div></li><li class="sec" id="zheng-lucheng"><button class="frame" type="button" data-i="24" data-v="0" aria-label="Open details: 軍歌嘹亮——鄭律成, bronze, 2012"><img src="assets/img/thumb/zheng-lucheng.jpg" srcset="assets/img/thumb/zheng-lucheng.jpg 800w, assets/img/zheng-lucheng.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="1202" alt="軍歌嘹亮——鄭律成, bronze, 2012" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">軍歌嘹亮——鄭律成</p>
+  <h4 class="en pinyin">Junge Liaoliang — Zheng Lücheng</h4>
+  <p class="meta"><span class="num">2012</span> · Bronze <span lang="zh-Hant">青銅</span></p>
+</div></li><li class="sec" id="zu-chongzhi"><button class="frame" type="button" data-i="25" data-v="0" aria-label="Open details: Zu Chongzhi, bronze, 2016"><img src="assets/img/thumb/zu-chongzhi.jpg" srcset="assets/img/thumb/zu-chongzhi.jpg 800w, assets/img/zu-chongzhi.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1353" height="1600" alt="Zu Chongzhi, bronze, 2016" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">祖沖之</p>
+  <h4 class="en">Zu Chongzhi</h4>
+  <p class="meta"><span class="num">2016</span> · Bronze <span lang="zh-Hant">青銅</span></p>
+</div></li></ul>
+</section><section class="group relief" aria-label="Relief">
+  <h3 class="group-title">Relief <span lang="zh-Hant">浮雕</span></h3>
+  <ul class="group-grid n1"><li class="sec" id="for-peace"><button class="frame" type="button" data-i="26" data-v="0" aria-label="Open details: For Peace, bronze relief, 2011"><img src="assets/img/thumb/for-peace.jpg" srcset="assets/img/thumb/for-peace.jpg 800w, assets/img/for-peace.jpg 1600w" sizes="(min-width: 900px) 22vw, 45vw" width="1600" height="746" alt="For Peace, bronze relief, 2011" loading="lazy" decoding="async"></button><div class="label-block compact">
+  <p class="zh" lang="zh-Hant">為了和平</p>
+  <h4 class="en">For Peace</h4>
+  <p class="meta"><span class="num">2011</span> · Bronze relief <span lang="zh-Hant">青銅浮雕</span></p>
+</div></li></ul>
+</section>
+</div>
+</div>
+</section>
+<aside class="round-sign" aria-label="In the Round">
+  <a class="wrap round-link" href="in-the-round.html">
+    <span class="mini-plinth" aria-hidden="true"><span class="mini-light"></span></span>
+    <span class="rs-title">In the Round <span lang="zh-Hant">雕塑・環視</span></span>
+    <span class="rs-note">Interactive 3D viewing — coming soon<span lang="zh-Hant">互動式 3D 觀賞・即將推出</span></span>
+    <span class="rs-go" aria-hidden="true">→</span>
+  </a>
+</aside>
+
+  <section class="wrap about" id="about" aria-labelledby="about-h">
+    <h2 class="sec-title" id="about-h">About <span lang="zh-Hant">關於</span></h2>
+    <figure><img src="assets/img/portrait.jpg" width="600" height="900" alt="Portrait of Xikang Lai" loading="lazy" decoding="async"></figure>
+    <div class="bio">
+      <p class="lead">Xikang Lai is a sculptor and educator based in Guangzhou. He graduated in sculpture from Guangzhou Academy of Fine Arts in 1990 and is a member of the Guangdong Artists Association. His commissions stand in China, Hong Kong and South Korea.<span lang="zh-Hant">賴錫康，雕塑家、教育者，居於廣州。1990年畢業於廣州美術學院雕塑系，廣東省美術家協會會員。作品見於中國內地、香港及韓國。</span></p>
+      <blockquote>"My practice reconfigures figurative traditions through material metamorphosis — from bronze patinas to jade translucence. […] observing the world as Adam Zagajewski urged: through material eyes."</blockquote>
+      <section class="history" aria-labelledby="history-h">
+        <h3 id="history-h" class="history-title">Selected history <span lang="zh-Hant">經歷選錄</span></h3>
+        <ol class="history-list">
+          <li><span class="h-year num">1990</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangzhou Academy of Fine Arts · B.A. in Sculpture; <i>Civilized Ruins</i>, now in the Academy's collection<span lang="zh-Hant">廣州美術學院・雕塑系學士；《廢墟》現藏學院</span></span></li>
+          <li><span class="h-year num">1990–2002</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangzhou Urban Construction Vocational High School · Teacher<span lang="zh-Hant">廣州城市建設高級職業中學・一級教師</span></span></li>
+          <li><span class="h-year num">From 2002</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangzhou Academy of Fine Arts, Lingnan Fine Arts College, Guangdong Commercial College · Visiting lecturer and professor<span lang="zh-Hant">2002年起・廣州美術學院、嶺南藝術學院、廣東商學院客座講師及教授</span></span></li>
+          <li><span class="h-year num">2006</span><span class="h-place">Gwangju, South Korea<span lang="zh-Hant">韓國光州</span></span><span class="h-what">Gwangju Municipal Office · Cultural Exchange Award<span lang="zh-Hant">光州市政府・文化交流獎</span></span></li>
+          <li><span class="h-year num">2006–07</span><span class="h-place">Guangdong<span lang="zh-Hant">廣東</span></span><span class="h-what"><i>Dance Study</i> and <i>Ballet</i> magazines · Cover sculptures<span lang="zh-Hant">《舞蹈研究》《芭蕾》・封面雕塑</span></span></li>
+          <li><span class="h-year num">2008</span><span class="h-place">Hong Kong<span lang="zh-Hant">香港</span></span><span class="h-what">Hong Kong Wetland Park · Commissioned sculpture series<span lang="zh-Hant">香港濕地公園・系列雕塑</span></span></li>
+          <li><span class="h-year num">2010</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">16th Asian Games · <i>Balance</i>, Excellence Award for sculpture design<span lang="zh-Hant">第十六屆亞洲運動會・《平衡》雕塑設計優秀獎</span></span></li>
+          <li><span class="h-year num">2011</span><span class="h-place">Harbin<span lang="zh-Hant">哈爾濱</span></span><span class="h-what">An Jung-geun Memorial Hall · <i>For Peace</i>, bronze relief<span lang="zh-Hant">安重根紀念館・《為了和平》青銅浮雕</span></span></li>
+          <li><span class="h-year num">2013</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Asia Sculpture Annual Exhibition · <i>Spring</i><span lang="zh-Hant">亞洲雕塑年度展覽・《春》</span></span></li>
+          <li><span class="h-year num">2016</span><span class="h-place">Xinyi, Guangdong<span lang="zh-Hant">廣東信宜</span></span><span class="h-what">Xinyi Middle School · <i>Zu Chongzhi</i><span lang="zh-Hant">信宜中學・《祖沖之》</span></span></li>
+          <li><span class="h-year num">2017</span><span class="h-place">China<span lang="zh-Hant">中國</span></span><span class="h-what">Huayi International Autumn Auction · <i>Resultant Force</i>, sold<span lang="zh-Hant">華藝國際秋季拍賣會・《合力》成交</span></span></li>
+          <li><span class="h-year num">2018</span><span class="h-place">Taichung<span lang="zh-Hant">臺中</span></span><span class="h-what">Cross-Strait Sculpture Exhibition · <i>Resultant Force</i>, <i>Float</i><span lang="zh-Hant">兩岸雕塑展・《合力》《水天》</span></span></li>
+          <li><span class="h-year num">2018</span><span class="h-place">Shanghai<span lang="zh-Hant">上海</span></span><span class="h-what">International Sculpture Forum · Exhibitor<span lang="zh-Hant">參展</span></span></li>
+          <li><span class="h-year num">2018</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州白雲區</span></span><span class="h-what">Baiyun District · <span lang="zh-Hant" class="inline">《蘭桂騰芳》</span>, public sculpture<span lang="zh-Hant">公共雕塑</span></span></li>
+          <li><span class="h-year num">2025</span><span class="h-place">Taichung<span lang="zh-Hant">臺中</span></span><span class="h-what">International Invitational Exhibition · <i>Resultant Force</i><span lang="zh-Hant">臺中國際邀請展・《合力》</span></span></li>
+        </ol>
+        <p class="history-foot">Publications: 20th Century Chinese Sculpture (Tianjin, 2012) · Public Art Masters (Beijing, 2016) · 70 Years of Chinese Art (Hebei, 2019). Also exhibited: Asian Sculpture Exhibition, Seoul.</p>
+      </section>
+      <details>
+        <summary><span>Full statement and critical perspectives <span lang="zh-Hant">自述與評論</span></span></summary>
+        <div class="details-body">
+          <p>"My practice reconfigures figurative traditions through material metamorphosis — from bronze patinas to jade translucence. Technical precision in anatomical rendering (§ casting, § carving) distills essential forms. This persistent excavation of transcultural beauty endures despite the fractures of modernity — observing the world as Adam Zagajewski urged: through material eyes."</p>
+          <div><p class="who">Pan Jiajun | Curator, Guangdong Artists</p>
+            <p>"Lai's material syntax:<br>1. VOLUMETRIC RIGOR - Anatomical precision in bronze/stone<br>2. DYNAMIC TENSION - Rhythmic density/void interplay<br>3. SURFACE ALCHEMY - Patina § carving § inlay transformations"</p></div>
+          <div><p class="who">Li Gongming | Professor, GAFA</p>
+            <p>"Lai crystallizes grace through:<br>• CONTRAPUNTAL VOLUMES - Flexion/extension in spatial dialogue<br>• TACTILE INTELLIGENCE - Bronze/wood resonance engineering<br>• MATERIAL POETICS - Surfaces activating subconscious reading"</p></div>
+        </div>
+      </details>
+    </div>
+  </section>
+</main>
+
+<section class="contact" id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <h2 class="sec-title" id="contact-h">Contact <span lang="zh-Hant">聯絡</span></h2>
+    <div class="direct">
+      <a class="mail" href="mailto:lxk1812@gmail.com" id="email">lxk1812@gmail.com</a>
+      <div class="row"><button class="btn icon" type="button" id="copy-email" aria-label="Copy email address" title="Copy email address"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><rect x="7.5" y="7.5" width="8.5" height="8.5" rx="1"/><path d="M12.5 7.5V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v6.5a1 1 0 0 0 1 1h2.5"/></svg></button></div>
+      <p class="enq"><span lang="zh-Hant">作品及展覽洽詢</span>Artwork, exhibition &amp; collaboration enquiries.</p>
+      <p class="links"><a href="https://linktr.ee/conlin1812" target="_blank" rel="noopener">linktr.ee/conlin1812 ↗</a></p>
+    </div>
+    <form id="cf" data-endpoint="" autocomplete="on">
+      <div class="field"><label for="cf-email">Your email <span lang="zh-Hant">電郵</span></label>
+        <input id="cf-email" name="email" type="email" required autocomplete="email" inputmode="email"></div>
+      <div class="field"><label for="cf-subject">Subject <span lang="zh-Hant">主題</span></label>
+        <input id="cf-subject" name="subject" type="text" required maxlength="140"></div>
+      <div class="field"><label for="cf-message">Message <span lang="zh-Hant">訊息</span></label>
+        <textarea id="cf-message" name="message" required maxlength="5000"></textarea></div>
+      <div class="form-row"><button class="btn icon send" type="submit" id="cf-send" aria-label="Send 發送" title="Send 發送"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4.5 10h11M11.5 6l4 4-4 4"/></svg></button></div>
+      <p class="status" id="cf-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+<footer><div class="wrap"><span>© Xikang Lai <span lang="zh-Hant">賴錫康</span></span></div></footer>
+
+<dialog id="lb" aria-labelledby="lb-zh">
+  <div class="lb">
+    <div class="lb-bar">
+      <span class="eyebrow num" id="lb-count"></span>
+      <div class="lb-nav">
+        <button class="btn icon" type="button" id="lb-prev" aria-label="Previous work" title="Previous"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M15.5 10h-11M8.5 6l-4 4 4 4"/></svg></button>
+        <button class="btn icon" type="button" id="lb-next" aria-label="Next work" title="Next"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4.5 10h11M11.5 6l4 4-4 4"/></svg></button>
+        <button class="btn icon" type="button" id="lb-close" aria-label="Close" title="Close"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5.5 5.5l9 9M14.5 5.5l-9 9"/></svg></button>
+      </div>
+    </div>
+    <div class="lb-stage"><img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt=""></div>
+    <div class="lb-side">
+      <div>
+        <p class="eyebrow" id="lb-ch"></p>
+        <p class="zh" lang="zh-Hant" id="lb-zh"></p>
+        <p class="en" id="lb-en"></p>
+        <p class="note" id="lb-note" hidden></p>
+      </div>
+      <div class="lb-views" id="lb-views" hidden></div>
+      <dl id="lb-dl"></dl>
+      <p class="lb-src" id="lb-src"></p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+const WORKS = [{"id": "dialogue-of-the-wind", "zh": "風之對話", "en": "Dialogue of the Wind", "pinyin": false, "zhonly": false, "year": "2007", "mat": ["Cupronickel", "白銅"], "size": "83 × 30 × 90 cm", "note": null, "records": [["Sold, China Guardian Guangzhou Winter Auction, 2009", "中國嘉德2009廣州冬季拍賣會（成交）"]], "views": ["dialogue-of-the-wind", "dialogue-of-the-wind-b"], "ch": "Body & Gesture · 身體與姿態", "src": "2025 catalogue PDF, pp. 25–26"}, {"id": "curved-stretching", "zh": "曲伸之美（之一）", "en": "The Beauty of Curved Stretching (Part 1)", "pinyin": false, "zhonly": false, "year": "2010", "mat": ["White marble", "漢白玉"], "size": "66 × 41 × 21 cm", "note": null, "records": [["Sold, China Guardian Guangzhou Winter Auction, 2010", "中國嘉德2010廣州冬季拍賣會（成交）"]], "views": ["curved-stretching"], "ch": "Body & Gesture · 身體與姿態", "src": "2025 catalogue PDF, pp. 27–28"}, {"id": "lying-figure", "zh": "側臥的人體", "en": "Lying Figure", "pinyin": false, "zhonly": false, "year": "2012", "mat": ["White marble", "漢白玉"], "size": null, "note": "Catalogue English title: The Human Body Lying on Its Side", "records": [["Sold, Huayi International Taozhen Auction, 2012", "華藝國際2012淘珍拍賣會（成交）"]], "views": ["lying-figure-b", "lying-figure"], "ch": "Body & Gesture · 身體與姿態", "src": "2025 catalogue PDF, pp. 29–30; Artist archive (Conlin 2): 5/P63"}, {"id": "midsummer-night", "zh": "仲夏夜（之一）", "en": "Midsummer Night (Part 1)", "pinyin": false, "zhonly": false, "year": "2015", "mat": ["Bronze", "青銅"], "size": "62 × 22 × 25 cm", "note": null, "records": [], "views": ["midsummer-night"], "ch": "Body & Gesture · 身體與姿態", "src": "2025 catalogue PDF, p. 32"}, {"id": "eagle-city-night", "zh": "城市夜空的鷹", "en": "An Eagle Flying in the Night Sky of the City", "pinyin": false, "zhonly": false, "year": "2007", "mat": ["Cupronickel", "白銅"], "size": null, "note": null, "records": [], "views": ["eagle-city-night"], "ch": "Body & Gesture · 身體與姿態", "src": "Artist archive (Conlin 2): 2/P15 and bilingual work notes"}, {"id": "heaven-earth", "zh": "天與地", "en": "Between Heaven and Earth", "pinyin": false, "zhonly": false, "year": null, "mat": null, "size": null, "note": "Year and material differ between archive sources (2010, cupronickel / 2011, bronze)", "records": [["Private collection", "私人收藏"]], "views": ["heaven-earth"], "ch": "Body & Gesture · 身體與姿態", "src": "Artist archive (Conlin 2): 1/P11 and bilingual work notes"}, {"id": "cape-good-hope", "zh": "地平線上的好望角", "en": "Dipingxian shang de Haowangjiao", "pinyin": true, "zhonly": false, "year": "2015", "mat": ["Bronze", "青銅"], "size": null, "note": null, "records": [["Private collection", "私人收藏"]], "views": ["cape-good-hope", "cape-good-hope-b"], "ch": "Body & Gesture · 身體與姿態", "src": "Artist archive (Conlin 2): 2/P21"}, {"id": "rose", "zh": "玫瑰", "en": "Meigui", "pinyin": true, "zhonly": false, "year": "2019", "mat": ["Clay", "泥塑"], "size": "H 48 cm", "note": null, "records": [], "views": ["rose"], "ch": "Body & Gesture · 身體與姿態", "src": "Artist archive (Conlin 2): 5/P58"}, {"id": "balance", "zh": "平衡", "en": "Balance", "pinyin": false, "zhonly": false, "year": "2010", "mat": ["Cupronickel", "白銅"], "size": null, "note": null, "records": [["Excellence Award for Sculpture Design, 16th Asian Games", "第十六屆亞洲運動會雕塑設計優秀獎"]], "views": ["balance"], "ch": "Force & Equilibrium · 力與平衡", "src": "2025 catalogue PDF, p. 34; artist CV"}, {"id": "spring", "zh": "春", "en": "Spring", "pinyin": false, "zhonly": false, "year": "2013", "mat": ["Original in cupronickel", "原作 白銅"], "size": "36 × 12 × 65 cm", "note": null, "records": [["Sold, Huayi International Spring Auction, 2014", "華藝國際2014春季拍賣會（成交）"], ["Asia Sculpture Annual Exhibition, Guangzhou, 2013", "亞洲雕塑年度展覽，廣州，2013"]], "views": ["spring"], "ch": "Force & Equilibrium · 力與平衡", "src": "2025 catalogue PDF, pp. 19–20; artist CV"}, {"id": "winter-spring", "zh": "冬·春", "en": "Dong · Chun", "pinyin": true, "zhonly": false, "year": "2015", "mat": ["Bronze", "青銅"], "size": null, "note": null, "records": [["Private collection", "私人收藏"]], "views": ["winter-spring"], "ch": "Force & Equilibrium · 力與平衡", "src": "Artist archive (Conlin 2): 2/P17"}, {"id": "resultant-force", "zh": "合力", "en": "Resultant Force", "pinyin": false, "zhonly": false, "year": "2015", "mat": ["Cast iron", "鑄鐵"], "size": null, "note": null, "records": [["Sold, Huayi International Autumn Auction, 2017", "華藝國際2017秋季拍賣會（成交）"], ["Taichung Cross-Strait Sculpture Exhibition, 2018", "2018臺中兩岸雕塑展"], ["Taichung International Invitational Exhibition, 2025", "2025臺中國際邀請展"]], "views": ["resultant-force"], "ch": "Force & Equilibrium · 力與平衡", "src": "2025 catalogue PDF, pp. 17–18"}, {"id": "float-1", "zh": "水天", "en": "Float (Part 1)", "pinyin": false, "zhonly": false, "year": null, "mat": ["Bronze", "青銅"], "size": "65 × 22 × 33 cm", "note": "Year differs between sources (archive file 2014; CV lists a 2012 Huayi sale)", "records": [["Taichung Cross-Strait Sculpture Exhibition, 2018", "2018臺中兩岸雕塑展"]], "views": ["float-1"], "ch": "Force & Equilibrium · 力與平衡", "src": "Artist archive (Conlin 2): 2/P22; artist CV (2019)"}, {"id": "float-2", "zh": "水天Ⅱ", "en": "Float (Part 2)", "pinyin": false, "zhonly": false, "year": null, "mat": ["Bronze", "青銅"], "size": null, "note": "Year differs between sources (archive file 2015; CV lists a 2014 Huayi sale)", "records": [["Private collection", "私人收藏"]], "views": ["float-2"], "ch": "Force & Equilibrium · 力與平衡", "src": "Artist archive (Conlin 2): 2/P24; artist CV (2019)"}, {"id": "float-part-3", "zh": "水天（之三）", "en": "Float (Part 3)", "pinyin": false, "zhonly": false, "year": "2024", "mat": ["Bronze", "青銅"], "size": "95 × 25 × 23 cm", "note": null, "records": [["Private collection", "私人收藏"]], "views": ["float-part-3"], "ch": "Force & Equilibrium · 力與平衡", "src": "2025 catalogue PDF, p. 22"}, {"id": "civilized-ruins-1990", "zh": "廢墟", "en": "Civilized Ruins", "pinyin": false, "zhonly": false, "year": "1990", "mat": ["Glass-fibre reinforced plastic, stainless steel", "玻璃鋼、不鏽鋼"], "size": null, "note": null, "records": [["Guangzhou Academy of Fine Arts", "廣州美術學院"]], "views": ["civilized-ruins-1990"], "ch": "Thresholds & Space · 門檻與空間", "src": "Artist archive (Conlin 2): 1/P5 and work notes; 2025 catalogue PDF, p. 6"}, {"id": "civilized-ruins", "zh": "廢墟—和平之門（門系列之一）", "en": "Civilized Ruins", "pinyin": false, "zhonly": false, "year": "2022", "mat": ["Bronze", "青銅"], "size": "73 × 46 × 98 cm", "note": null, "records": [["Private collection", "私人收藏"]], "views": ["civilized-ruins"], "ch": "Thresholds & Space · 門檻與空間", "src": "2025 catalogue PDF, pp. 5–6"}, {"id": "gate-of-spirit", "zh": "意志之門（門系列之二）", "en": "The Gate of Spirit", "pinyin": false, "zhonly": false, "year": "2025", "mat": ["Stainless steel, carbon lacquer", "不鏽鋼 炭漆"], "size": "50 × 46 × 42 cm", "note": null, "records": [], "views": ["gate-of-spirit-b", "gate-of-spirit"], "ch": "Thresholds & Space · 門檻與空間", "src": "2025 catalogue PDF, p. 8"}, {"id": "gate-of-awakening-draft", "zh": "覺醒之門（門系列之三手稿）", "en": "The Gate of Awakening (Draft)", "pinyin": false, "zhonly": false, "year": "2024", "mat": ["Bronze", "青銅"], "size": "15 × 18 × 22 cm", "note": null, "records": [["Private collection", "私人收藏"]], "views": ["gate-of-awakening-draft", "gate-of-awakening-draft-b"], "ch": "Thresholds & Space · 門檻與空間", "src": "2025 catalogue PDF, p. 16"}, {"id": "gate-of-awakening", "zh": "覺醒之門（門系列之三）", "en": "The Gate of Awakening", "pinyin": false, "zhonly": false, "year": "2025", "mat": ["Steel plate", "鋼板"], "size": "48 × 41 × 60 cm", "note": null, "records": [], "views": ["gate-of-awakening"], "ch": "Thresholds & Space · 門檻與空間", "src": "2025 catalogue PDF, p. 9"}, {"id": "gate-of-chaos", "zh": "混沌之門（門系列之四）", "en": "The Gate of Chaos", "pinyin": false, "zhonly": false, "year": "2025", "mat": ["Steel plate", "鋼板"], "size": "48 × 41 × 60 cm", "note": null, "records": [], "views": ["gate-of-chaos"], "ch": "Thresholds & Space · 門檻與空間", "src": "2025 catalogue PDF, p. 14"}, {"id": "lan-gui-teng-fang", "zh": "蘭桂騰芳", "en": "", "pinyin": false, "zhonly": true, "year": "2018", "mat": ["Bronze", "青銅"], "size": "H 350 cm", "note": null, "records": [["Baiyun District, Guangzhou", "廣州市白雲區"]], "views": ["lan-gui-teng-fang"], "ch": "Public Works & Archive · 公共藝術與文獻", "src": "Artist archive (Conlin 2): 5/P59; artist CV (2019)"}, {"id": "an-jung-geun", "zh": "安重根", "en": "An Jung-geun", "pinyin": false, "zhonly": false, "year": null, "mat": ["Bronze", "青銅"], "size": null, "note": "Year and height differ between sources (archive file 2000, H 220 cm; CV 2009, H 190 cm)", "records": [["An Jung-geun Memorial Hall, Harbin", "哈爾濱安重根紀念館"]], "views": ["an-jung-geun"], "ch": "Public Works & Archive · 公共藝術與文獻", "src": "Artist archive (Conlin 2): 3/P37; artist CV (2019)"}, {"id": "sun-yat-sen", "zh": "孫中山", "en": "Sun Yat-sen", "pinyin": false, "zhonly": false, "year": "2006", "mat": ["Granite", "花崗石"], "size": null, "note": "Height differs between sources (archive file H 270 cm; CV H 230 cm)", "records": [["Guangzhou Zhixin High School", "廣州市執信中學"]], "views": ["sun-yat-sen"], "ch": "Public Works & Archive · 公共藝術與文獻", "src": "Artist archive (Conlin 2): 5/P53; artist CV (2019)"}, {"id": "zheng-lucheng", "zh": "軍歌嘹亮——鄭律成", "en": "Junge Liaoliang — Zheng Lücheng", "pinyin": true, "zhonly": false, "year": "2012", "mat": ["Bronze", "青銅"], "size": "H 120 cm", "note": null, "records": [["Gwangju, South Korea", "韓國光州"]], "views": ["zheng-lucheng"], "ch": "Public Works & Archive · 公共藝術與文獻", "src": "Artist archive (Conlin 2): 3/P35"}, {"id": "zu-chongzhi", "zh": "祖沖之", "en": "Zu Chongzhi", "pinyin": false, "zhonly": false, "year": "2016", "mat": ["Bronze", "青銅"], "size": "H 150 cm", "note": null, "records": [["Xinyi Middle School, Guangdong", "廣東信宜中學"]], "views": ["zu-chongzhi"], "ch": "Public Works & Archive · 公共藝術與文獻", "src": "Artist archive (Conlin 2): 4/P52"}, {"id": "for-peace", "zh": "為了和平", "en": "For Peace", "pinyin": false, "zhonly": false, "year": "2011", "mat": ["Bronze relief", "青銅浮雕"], "size": null, "note": "Archive English title: In the Sake of Peace", "records": [["An Jung-geun Memorial Hall, Harbin", "哈爾濱安重根紀念館"]], "views": ["for-peace"], "ch": "Public Works & Archive · 公共藝術與文獻", "src": "Artist archive (Conlin 2): 4/P39, work notes and the artist's 2011 address"}];
+const TO = "lxk1812@gmail.com";
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));
+
+/* ---- viewer ---- */
+const lb = $("lb"), img = $("lb-img");
+let cur = 0, view = 0, opener = null;
+const row = (k, en, zh) => `<dt>${k}</dt><dd>${esc(en)}${zh ? `<span lang="zh-Hant">${esc(zh)}</span>` : ""}</dd>`;
+const tbc = (k) => `<dt>${k}</dt><dd class="tbc">To be confirmed<span lang="zh-Hant">待確認</span></dd>`;
+function render(dir){
+  const w = WORKS[cur];
+  img.className = "";
+  img.style.opacity = 0;
+  img.onload = () => { img.style.opacity = ""; void img.offsetWidth; img.className = "enter-" + (dir || "view"); };
+  img.src = `assets/img/${w.views[view]}.jpg`;
+  const side = document.querySelector(".lb-side"); side.classList.remove("swap"); void side.offsetWidth; side.classList.add("swap");
+  img.alt = `${w.pinyin || w.zhonly ? w.zh : w.en}${w.mat ? ", " + w.mat[0].toLowerCase() : ""}${w.year ? ", " + w.year : ""}`;
+  $("lb-count").textContent = `${String(cur + 1).padStart(2, "0")} / ${WORKS.length}`;
+  $("lb-ch").textContent = w.ch;
+  $("lb-zh").textContent = w.zh;
+  const en = $("lb-en"); en.textContent = w.en; en.hidden = !w.en; en.classList.toggle("pinyin", w.pinyin);
+  const notes = [];
+  if (w.pinyin) notes.push("English title to be confirmed; pinyin shown.");
+  if (w.zhonly) notes.push("Title in Chinese only.");
+  if (w.note) notes.push(w.note + ".");
+  const n = $("lb-note"); n.hidden = !notes.length; n.textContent = notes.join(" ");
+  let dl = (w.year ? row("Year", w.year) : tbc("Year")) + (w.mat ? row("Material", w.mat[0], w.mat[1]) : tbc("Material"));
+  if (w.size) dl += row("Size", w.size);
+  if (w.records.length) dl += `<dt>Record</dt><dd><ul>${w.records.map(r => `<li>${esc(r[0])}<span lang="zh-Hant">${esc(r[1])}</span></li>`).join("")}</ul></dd>`;
+  $("lb-dl").innerHTML = dl;
+  $("lb-src").textContent = `Source: ${w.src}`;
+  const vs = $("lb-views");
+  vs.hidden = w.views.length < 2;
+  vs.innerHTML = w.views.length < 2 ? "" : w.views.map((v, k) => `<button type="button" data-k="${k}" aria-pressed="${k === view}" aria-label="View ${k + 1} of ${w.views.length}"><img src="assets/img/thumb/${v}.jpg" alt=""></button>`).join("");
+}
+function openViewer(i, v, btn){ cur = i; view = v || 0; opener = btn; if (!lb.open) lb.showModal(); render("open"); }
+function step(d){ cur = (cur + d + WORKS.length) % WORKS.length; view = 0; render(d > 0 ? "next" : "prev"); }
+document.querySelectorAll("button.frame").forEach(b => b.addEventListener("click", () => openViewer(+b.dataset.i, +b.dataset.v, b)));
+$("lb-views").addEventListener("click", e => { const b = e.target.closest("button[data-k]"); if (b) { view = +b.dataset.k; render("view"); } });
+$("lb-close").addEventListener("click", () => lb.close());
+$("lb-prev").addEventListener("click", () => step(-1));
+$("lb-next").addEventListener("click", () => step(1));
+lb.addEventListener("keydown", e => { if (e.key === "ArrowRight") step(1); if (e.key === "ArrowLeft") step(-1); });
+lb.addEventListener("close", () => { if (opener && opener.isConnected) opener.focus({ preventScroll: true }); });
+
+/* ---- current room in the navigation ---- */
+const links = [...document.querySelectorAll(".nav a")];
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (en.isIntersecting) links.forEach(a => a.classList.toggle("on", a.getAttribute("href") === "#" + en.target.dataset.room));
+  }), { rootMargin: "-40% 0px -55% 0px" });
+  document.querySelectorAll(".chapter, .round-sign, #about, #contact").forEach(s => {
+    s.dataset.room = s.id || (s.querySelector(".ch-head") || {}).id || "";
+    io.observe(s);
+  });
+}
+
+/* ---- copy helper ---- */
+const ICON_CHECK = '<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M5 10.5l3.2 3.2L15 7"/></svg>';
+async function copyText(text, btn, fallback){
+  const html = btn.innerHTML, label = btn.getAttribute("aria-label");
+  try { await navigator.clipboard.writeText(text); btn.innerHTML = ICON_CHECK; btn.setAttribute("aria-label", "Copied"); }
+  catch { fallback && fallback(); }
+  setTimeout(() => { btn.innerHTML = html; btn.setAttribute("aria-label", label); }, 2400);
+}
+$("copy-email").addEventListener("click", e => copyText(TO, e.currentTarget, () => {
+  const r = document.createRange(); r.selectNodeContents($("email")); const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+}));
+
+/* ---- contact form ----
+   With data-endpoint set (e.g. a Formspree or Netlify form URL), the form posts there and reports the server's answer.
+   Without one, it opens the visitor's email app with the message filled in. It never reports "sent" unless a server confirmed it. */
+const form = $("cf"), status = $("cf-status");
+form.addEventListener("submit", async (ev) => {
+  ev.preventDefault();
+  if (!form.reportValidity()) return;
+  const email = $("cf-email").value.trim(), subject = $("cf-subject").value.trim(), message = $("cf-message").value.trim();
+  const endpoint = form.dataset.endpoint;
+  if (endpoint) {
+    status.textContent = "Sending…";
+    try {
+      const r = await fetch(endpoint, { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) });
+      if (r.ok) { status.innerHTML = 'Message sent. Thank you.<span lang="zh-Hant">訊息已送出，謝謝。</span>'; form.reset(); return; }
+      throw new Error(String(r.status));
+    } catch {
+      status.innerHTML = 'The message could not be sent from this page.<span lang="zh-Hant">表單未能送出。</span>';
+    }
+  }
+  const body = `${message}\n\n${email}`;
+  const href = `mailto:${TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const full = `To: ${TO}\nSubject: ${subject}\n\n${body}`;
+  status.innerHTML = `Your email app should open with this message ready to send. If it does not, copy the message<button class="btn icon" type="button" id="cf-copy" aria-label="Copy the message" title="Copy the message"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><rect x="7.5" y="7.5" width="8.5" height="8.5" rx="1"/><path d="M12.5 7.5V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v6.5a1 1 0 0 0 1 1h2.5"/></svg></button>and send it to ${TO}.<span lang="zh-Hant">您的郵件程式將開啟並帶入此訊息；如未開啟，請複製訊息並寄至 ${TO}。</span>`;
+  $("cf-copy").addEventListener("click", e => copyText(full, e.currentTarget, () => {
+    if (!status.querySelector("textarea")) { const t = document.createElement("textarea"); t.readOnly = true; t.value = full; t.setAttribute("aria-label", "Message to copy"); status.appendChild(t); }
+    const t = status.querySelector("textarea"); t.focus(); t.select();
+  }));
+  const a = document.createElement("a"); a.href = href; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove();
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>In the Round · Xikang Lai</title>
+<meta name="description" content="In the Round 雕塑・環視: interactive 3D viewing of Xikang Lai's sculpture, coming soon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400&family=Noto+Sans+TC:wght@300;400&display=swap">
+<style>
+/* A single dark room, reserved for 3D viewing. An empty plinth; one light circles it.
+   The light's position is two registered custom properties eased a quarter-cycle apart, so it traces an ellipse. */
+:root{
+  --room:#FBFBFD; --room-deep:#DCDDE8; --ink:#17161F; --mute:#6C6B7B; --faint:#9897AA; --line:#D9D9E4;
+  --cool:150,162,224;
+  --stone-top:#3A3770; --stone-face:#2A2752; --stone-dark:#1A1838;
+  --f-display:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
+  --f-zh:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --gut:clamp(16px,4vw,56px);
+  color-scheme:light;
+}
+@property --lx{syntax:"<percentage>";inherits:true;initial-value:22%}
+@property --ly{syntax:"<percentage>";inherits:true;initial-value:70%}
+@property --front{syntax:"<integer>";inherits:true;initial-value:3}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{background:radial-gradient(60% 70% at 50% 62%,#FFFFFF 0%,var(--room) 30%,#ECECF3 62%,var(--room-deep) 100%);background-color:var(--room);color:var(--ink);font:400 16px/1.6 var(--f-display);-webkit-font-smoothing:antialiased}
+[lang="zh-Hant"]{font-family:var(--f-zh)}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
+
+.room{overflow-x:clip;min-height:100vh;min-height:100svh;display:grid;grid-template-rows:auto 1fr auto;padding:env(safe-area-inset-top,0px) var(--gut) env(safe-area-inset-bottom,0px)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:64px;flex-wrap:wrap}
+.brand{font:400 12px/1 var(--f-display);letter-spacing:.28em;text-transform:uppercase;display:flex;gap:12px;align-items:baseline}
+.brand span{font:300 12px/1 var(--f-zh);letter-spacing:.32em}
+.back{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--mute);border:1px solid var(--line);transition:color .4s,border-color .4s}
+.back svg{fill:none;stroke:currentColor;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.back:hover{color:var(--ink);border-color:var(--mute)}
+.back:hover{color:var(--ink)}
+
+main{display:grid;justify-items:center;align-content:center;gap:clamp(28px,5vh,56px);text-align:center;padding-block:clamp(24px,6vh,72px)}
+h1{margin:0;display:grid;gap:.8em}
+.t-en{color:#1D1C2B;font:200 clamp(40px,7vw,104px)/1 var(--f-display);letter-spacing:.14em;padding-left:.14em;text-transform:uppercase}
+.t-zh{font:300 clamp(15px,1.6vw,21px)/1 var(--f-zh);letter-spacing:.6em;padding-left:.6em;color:var(--mute)}
+
+/* the stage: an empty spotlight. A soft beam falls on a pool of light where a work will stand;
+   the light breathes slowly and a little dust drifts up through it. */
+.stage{position:relative;width:min(560px,86vw);aspect-ratio:16/9}
+.beam{position:absolute;left:50%;top:-14%;width:62%;height:104%;translate:-50% 0;
+  clip-path:polygon(44% 0,56% 0,100% 100%,0 100%);
+  background:linear-gradient(to bottom,transparent 0%,rgba(255,255,255,.95) 20%,rgba(255,255,255,.7) 58%,rgba(255,255,255,.25) 90%,transparent);
+  animation:breathe 9s ease-in-out infinite alternate}
+.beam::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(var(--cool),.16),transparent 30%,transparent 70%,rgba(var(--cool),.16))}
+.halo{position:absolute;left:50%;top:-6%;width:86%;height:100%;translate:-50% 0;
+  clip-path:polygon(40% 0,60% 0,100% 100%,0 100%);filter:blur(28px);opacity:.7;
+  background:linear-gradient(to bottom,transparent,rgba(var(--cool),.08) 40%,rgba(var(--cool),.12) 85%,transparent)}
+.pool{position:absolute;left:50%;bottom:6%;width:60%;height:26%;translate:-50% 0;border-radius:50%;
+  background:radial-gradient(closest-side,#FFFFFF 0%,rgba(255,255,255,.95) 38%,rgba(var(--cool),.30) 70%,rgba(var(--cool),0) 100%);
+  box-shadow:0 0 60px 6px rgba(var(--cool),.18);
+  animation:breathe 9s ease-in-out infinite alternate}
+@keyframes breathe{from{opacity:.78}to{opacity:1}}
+.dust{position:absolute;left:50%;top:0;width:40%;height:88%;translate:-50% 0;pointer-events:none}
+.dust i{position:absolute;bottom:8%;width:2px;height:2px;border-radius:50%;background:rgb(var(--cool));box-shadow:0 0 4px rgba(var(--cool),.6);opacity:0;animation:drift 14s linear infinite}
+.dust i:nth-child(1){left:38%;animation-delay:0s}
+.dust i:nth-child(2){left:55%;animation-delay:-3.5s;animation-duration:17s}
+.dust i:nth-child(3){left:47%;animation-delay:-7s}
+.dust i:nth-child(4){left:62%;animation-delay:-10s;animation-duration:19s}
+.dust i:nth-child(5){left:44%;animation-delay:-12.5s;animation-duration:16s}
+@keyframes drift{0%{opacity:0;translate:0 0}15%{opacity:.55}70%{opacity:.35}100%{opacity:0;translate:14px -150px}}
+.note{display:grid;gap:14px;justify-items:center}
+.coming{margin:0;font-size:12px;line-height:2;letter-spacing:.26em;text-transform:uppercase}
+.coming [lang]{display:block;letter-spacing:.34em;color:var(--mute)}
+.desc{margin:0;max-width:44ch;font-size:14px;color:var(--mute);line-height:1.8}
+.desc [lang]{display:block;font-size:13px;letter-spacing:.08em;color:var(--faint)}
+
+.foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:20px;font-size:12px;letter-spacing:.08em;color:var(--faint);border-top:1px solid var(--line)}
+.foot a:hover{color:var(--ink)}
+
+/* arrival: the room's text settles once */
+@keyframes settle{from{opacity:0;translate:0 12px}}
+h1,.note{animation:settle 1.6s cubic-bezier(.2,.7,.15,1) both}
+.note{animation-delay:.4s}
+
+@media (max-width:520px){
+  .stage{aspect-ratio:4/3}
+  .coming{font-size:11px;letter-spacing:.16em}
+  .coming [lang]{letter-spacing:.24em}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .dust{display:none}
+}
+</style>
+</head>
+<body>
+<div class="room">
+  <header class="top">
+    <a class="brand" href="index.html">Xikang Lai <span lang="zh-Hant">賴錫康</span></a>
+    <a class="back" href="index.html#public" aria-label="Back to the exhibition" title="Back to the exhibition"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true" focusable="false"><path d="M15.5 10h-11M8.5 6l-4 4 4 4"/></svg></a>
+  </header>
+  <main>
+    <h1><span class="t-en">In the Round</span><span class="t-zh" lang="zh-Hant">雕塑・環視</span></h1>
+    <div class="stage" aria-hidden="true">
+      <div class="halo"></div>
+      <div class="beam"></div>
+      <div class="pool"></div>
+      <div class="dust"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="note">
+      <p class="coming">Interactive 3D Viewing — Coming Soon<span lang="zh-Hant">互動式 3D 觀賞・即將推出</span></p>
+      <p class="desc">Selected works will be viewable here from every side.<span lang="zh-Hant">精選作品將可於此環繞觀賞。</span></p>
+    </div>
+  </main>
+  <footer class="foot"><span>© Xikang Lai <span lang="zh-Hant">賴錫康</span></span><a href="index.html#contact">Enquiries <span lang="zh-Hant">洽詢</span></a></footer>
+</div>
+</body>
+</html>
