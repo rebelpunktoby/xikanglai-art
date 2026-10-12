@@ -1,0 +1,637 @@
+[
+  {
+    "id": "dialogue-of-the-wind",
+    "chapter": "Body & Gesture",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "風之對話",
+    "title_en": "Dialogue of the Wind",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2007",
+    "material_en": "Cupronickel",
+    "material_zh": "白銅",
+    "size": "83 × 30 × 90 cm",
+    "records": [
+      {
+        "en": "Sold, China Guardian Guangzhou Winter Auction, 2009",
+        "zh": "中國嘉德2009廣州冬季拍賣會（成交）"
+      }
+    ],
+    "images": [
+      "assets/img/dialogue-of-the-wind.jpg",
+      "assets/img/dialogue-of-the-wind-b.jpg"
+    ],
+    "source": "2025 catalogue PDF, pp. 25–26"
+  },
+  {
+    "id": "curved-stretching",
+    "chapter": "Body & Gesture",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "曲伸之美（之一）",
+    "title_en": "The Beauty of Curved Stretching (Part 1)",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2010",
+    "material_en": "White marble",
+    "material_zh": "漢白玉",
+    "size": "66 × 41 × 21 cm",
+    "records": [
+      {
+        "en": "Sold, China Guardian Guangzhou Winter Auction, 2010",
+        "zh": "中國嘉德2010廣州冬季拍賣會（成交）"
+      }
+    ],
+    "images": [
+      "assets/img/curved-stretching.jpg"
+    ],
+    "source": "2025 catalogue PDF, pp. 27–28"
+  },
+  {
+    "id": "lying-figure",
+    "chapter": "Body & Gesture",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "側臥的人體",
+    "title_en": "Lying Figure",
+    "title_en_kind": "title",
+    "note": "Catalogue English title: The Human Body Lying on Its Side",
+    "year": "2012",
+    "material_en": "White marble",
+    "material_zh": "漢白玉",
+    "size": null,
+    "records": [
+      {
+        "en": "Sold, Huayi International Taozhen Auction, 2012",
+        "zh": "華藝國際2012淘珍拍賣會（成交）"
+      }
+    ],
+    "images": [
+      "assets/img/lying-figure-b.jpg",
+      "assets/img/lying-figure.jpg"
+    ],
+    "source": "2025 catalogue PDF, pp. 29–30; Artist archive (Conlin 2): 5/P63"
+  },
+  {
+    "id": "midsummer-night",
+    "chapter": "Body & Gesture",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "仲夏夜（之一）",
+    "title_en": "Midsummer Night (Part 1)",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2015",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": "62 × 22 × 25 cm",
+    "records": [],
+    "images": [
+      "assets/img/midsummer-night.jpg"
+    ],
+    "source": "2025 catalogue PDF, p. 32"
+  },
+  {
+    "id": "eagle-city-night",
+    "chapter": "Body & Gesture",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "城市夜空的鷹",
+    "title_en": "An Eagle Flying in the Night Sky of the City",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2007",
+    "material_en": "Cupronickel",
+    "material_zh": "白銅",
+    "size": null,
+    "records": [],
+    "images": [
+      "assets/img/eagle-city-night.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 2/P15 and bilingual work notes"
+  },
+  {
+    "id": "heaven-earth",
+    "chapter": "Body & Gesture",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "天與地",
+    "title_en": "Between Heaven and Earth",
+    "title_en_kind": "title",
+    "note": "Year and material differ between archive sources (2010, cupronickel / 2011, bronze)",
+    "year": null,
+    "material_en": null,
+    "material_zh": null,
+    "size": null,
+    "records": [
+      {
+        "en": "Private collection",
+        "zh": "私人收藏"
+      }
+    ],
+    "images": [
+      "assets/img/heaven-earth.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 1/P11 and bilingual work notes"
+  },
+  {
+    "id": "cape-good-hope",
+    "chapter": "Body & Gesture",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "地平線上的好望角",
+    "title_en": "Dipingxian shang de Haowangjiao",
+    "title_en_kind": "pinyin",
+    "note": null,
+    "year": "2015",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": null,
+    "records": [
+      {
+        "en": "Private collection",
+        "zh": "私人收藏"
+      }
+    ],
+    "images": [
+      "assets/img/cape-good-hope.jpg",
+      "assets/img/cape-good-hope-b.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 2/P21"
+  },
+  {
+    "id": "rose",
+    "chapter": "Body & Gesture",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "玫瑰",
+    "title_en": "Meigui",
+    "title_en_kind": "pinyin",
+    "note": null,
+    "year": "2019",
+    "material_en": "Clay",
+    "material_zh": "泥塑",
+    "size": "H 48 cm",
+    "records": [],
+    "images": [
+      "assets/img/rose.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 5/P58"
+  },
+  {
+    "id": "balance",
+    "chapter": "Force & Equilibrium",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "平衡",
+    "title_en": "Balance",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2010",
+    "material_en": "Cupronickel",
+    "material_zh": "白銅",
+    "size": null,
+    "records": [
+      {
+        "en": "Excellence Award for Sculpture Design, 16th Asian Games",
+        "zh": "第十六屆亞洲運動會雕塑設計優秀獎"
+      }
+    ],
+    "images": [
+      "assets/img/balance.jpg"
+    ],
+    "source": "2025 catalogue PDF, p. 34; artist CV"
+  },
+  {
+    "id": "spring",
+    "chapter": "Force & Equilibrium",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "春",
+    "title_en": "Spring",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2013",
+    "material_en": "Original in cupronickel",
+    "material_zh": "原作 白銅",
+    "size": "36 × 12 × 65 cm",
+    "records": [
+      {
+        "en": "Sold, Huayi International Spring Auction, 2014",
+        "zh": "華藝國際2014春季拍賣會（成交）"
+      },
+      {
+        "en": "Asia Sculpture Annual Exhibition, Guangzhou, 2013",
+        "zh": "亞洲雕塑年度展覽，廣州，2013"
+      }
+    ],
+    "images": [
+      "assets/img/spring.jpg"
+    ],
+    "source": "2025 catalogue PDF, pp. 19–20; artist CV"
+  },
+  {
+    "id": "winter-spring",
+    "chapter": "Force & Equilibrium",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "冬·春",
+    "title_en": "Dong · Chun",
+    "title_en_kind": "pinyin",
+    "note": null,
+    "year": "2015",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": null,
+    "records": [
+      {
+        "en": "Private collection",
+        "zh": "私人收藏"
+      }
+    ],
+    "images": [
+      "assets/img/winter-spring.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 2/P17"
+  },
+  {
+    "id": "resultant-force",
+    "chapter": "Force & Equilibrium",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "合力",
+    "title_en": "Resultant Force",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2015",
+    "material_en": "Cast iron",
+    "material_zh": "鑄鐵",
+    "size": null,
+    "records": [
+      {
+        "en": "Sold, Huayi International Autumn Auction, 2017",
+        "zh": "華藝國際2017秋季拍賣會（成交）"
+      },
+      {
+        "en": "Taichung Cross-Strait Sculpture Exhibition, 2018",
+        "zh": "2018臺中兩岸雕塑展"
+      },
+      {
+        "en": "Taichung International Invitational Exhibition, 2025",
+        "zh": "2025臺中國際邀請展"
+      }
+    ],
+    "images": [
+      "assets/img/resultant-force.jpg"
+    ],
+    "source": "2025 catalogue PDF, pp. 17–18"
+  },
+  {
+    "id": "float-1",
+    "chapter": "Force & Equilibrium",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "水天",
+    "title_en": "Float (Part 1)",
+    "title_en_kind": "title",
+    "note": "Year differs between sources (archive file 2014; CV lists a 2012 Huayi sale)",
+    "year": null,
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": "65 × 22 × 33 cm",
+    "records": [
+      {
+        "en": "Taichung Cross-Strait Sculpture Exhibition, 2018",
+        "zh": "2018臺中兩岸雕塑展"
+      }
+    ],
+    "images": [
+      "assets/img/float-1.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 2/P22; artist CV (2019)"
+  },
+  {
+    "id": "float-2",
+    "chapter": "Force & Equilibrium",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "水天Ⅱ",
+    "title_en": "Float (Part 2)",
+    "title_en_kind": "title",
+    "note": "Year differs between sources (archive file 2015; CV lists a 2014 Huayi sale)",
+    "year": null,
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": null,
+    "records": [
+      {
+        "en": "Private collection",
+        "zh": "私人收藏"
+      }
+    ],
+    "images": [
+      "assets/img/float-2.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 2/P24; artist CV (2019)"
+  },
+  {
+    "id": "float-part-3",
+    "chapter": "Force & Equilibrium",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "水天（之三）",
+    "title_en": "Float (Part 3)",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2024",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": "95 × 25 × 23 cm",
+    "records": [
+      {
+        "en": "Private collection",
+        "zh": "私人收藏"
+      }
+    ],
+    "images": [
+      "assets/img/float-part-3.jpg"
+    ],
+    "source": "2025 catalogue PDF, p. 22"
+  },
+  {
+    "id": "civilized-ruins-1990",
+    "chapter": "Thresholds & Space",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "廢墟",
+    "title_en": "Civilized Ruins",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "1990",
+    "material_en": "Glass-fibre reinforced plastic, stainless steel",
+    "material_zh": "玻璃鋼、不鏽鋼",
+    "size": null,
+    "records": [
+      {
+        "en": "Guangzhou Academy of Fine Arts",
+        "zh": "廣州美術學院"
+      }
+    ],
+    "images": [
+      "assets/img/civilized-ruins-1990.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 1/P5 and work notes; 2025 catalogue PDF, p. 6"
+  },
+  {
+    "id": "civilized-ruins",
+    "chapter": "Thresholds & Space",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "廢墟—和平之門（門系列之一）",
+    "title_en": "Civilized Ruins",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2022",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": "73 × 46 × 98 cm",
+    "records": [
+      {
+        "en": "Private collection",
+        "zh": "私人收藏"
+      }
+    ],
+    "images": [
+      "assets/img/civilized-ruins.jpg"
+    ],
+    "source": "2025 catalogue PDF, pp. 5–6"
+  },
+  {
+    "id": "gate-of-spirit",
+    "chapter": "Thresholds & Space",
+    "tier": "featured",
+    "hero": true,
+    "title_zh": "意志之門（門系列之二）",
+    "title_en": "The Gate of Spirit",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2025",
+    "material_en": "Stainless steel, carbon lacquer",
+    "material_zh": "不鏽鋼 炭漆",
+    "size": "50 × 46 × 42 cm",
+    "records": [],
+    "images": [
+      "assets/img/gate-of-spirit-b.jpg",
+      "assets/img/gate-of-spirit.jpg"
+    ],
+    "source": "2025 catalogue PDF, p. 8"
+  },
+  {
+    "id": "gate-of-awakening-draft",
+    "chapter": "Thresholds & Space",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "覺醒之門（門系列之三手稿）",
+    "title_en": "The Gate of Awakening (Draft)",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2024",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": "15 × 18 × 22 cm",
+    "records": [
+      {
+        "en": "Private collection",
+        "zh": "私人收藏"
+      }
+    ],
+    "images": [
+      "assets/img/gate-of-awakening-draft.jpg",
+      "assets/img/gate-of-awakening-draft-b.jpg"
+    ],
+    "source": "2025 catalogue PDF, p. 16"
+  },
+  {
+    "id": "gate-of-awakening",
+    "chapter": "Thresholds & Space",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "覺醒之門（門系列之三）",
+    "title_en": "The Gate of Awakening",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2025",
+    "material_en": "Steel plate",
+    "material_zh": "鋼板",
+    "size": "48 × 41 × 60 cm",
+    "records": [],
+    "images": [
+      "assets/img/gate-of-awakening.jpg"
+    ],
+    "source": "2025 catalogue PDF, p. 9"
+  },
+  {
+    "id": "gate-of-chaos",
+    "chapter": "Thresholds & Space",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "混沌之門（門系列之四）",
+    "title_en": "The Gate of Chaos",
+    "title_en_kind": "title",
+    "note": null,
+    "year": "2025",
+    "material_en": "Steel plate",
+    "material_zh": "鋼板",
+    "size": "48 × 41 × 60 cm",
+    "records": [],
+    "images": [
+      "assets/img/gate-of-chaos.jpg"
+    ],
+    "source": "2025 catalogue PDF, p. 14"
+  },
+  {
+    "id": "lan-gui-teng-fang",
+    "chapter": "Public Works & Archive",
+    "tier": "featured",
+    "hero": false,
+    "title_zh": "蘭桂騰芳",
+    "title_en": null,
+    "title_en_kind": "zh",
+    "note": null,
+    "year": "2018",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": "H 350 cm",
+    "records": [
+      {
+        "en": "Baiyun District, Guangzhou",
+        "zh": "廣州市白雲區"
+      }
+    ],
+    "images": [
+      "assets/img/lan-gui-teng-fang.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 5/P59; artist CV (2019)"
+  },
+  {
+    "id": "an-jung-geun",
+    "chapter": "Public Works & Archive",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "安重根",
+    "title_en": "An Jung-geun",
+    "title_en_kind": "name",
+    "note": "Year and height differ between sources (archive file 2000, H 220 cm; CV 2009, H 190 cm)",
+    "year": null,
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": null,
+    "records": [
+      {
+        "en": "An Jung-geun Memorial Hall, Harbin",
+        "zh": "哈爾濱安重根紀念館"
+      }
+    ],
+    "images": [
+      "assets/img/an-jung-geun.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 3/P37; artist CV (2019)"
+  },
+  {
+    "id": "sun-yat-sen",
+    "chapter": "Public Works & Archive",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "孫中山",
+    "title_en": "Sun Yat-sen",
+    "title_en_kind": "name",
+    "note": "Height differs between sources (archive file H 270 cm; CV H 230 cm)",
+    "year": "2006",
+    "material_en": "Granite",
+    "material_zh": "花崗石",
+    "size": null,
+    "records": [
+      {
+        "en": "Guangzhou Zhixin High School",
+        "zh": "廣州市執信中學"
+      }
+    ],
+    "images": [
+      "assets/img/sun-yat-sen.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 5/P53; artist CV (2019)"
+  },
+  {
+    "id": "zheng-lucheng",
+    "chapter": "Public Works & Archive",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "軍歌嘹亮——鄭律成",
+    "title_en": "Junge Liaoliang — Zheng Lücheng",
+    "title_en_kind": "pinyin",
+    "note": null,
+    "year": "2012",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": "H 120 cm",
+    "records": [
+      {
+        "en": "Gwangju, South Korea",
+        "zh": "韓國光州"
+      }
+    ],
+    "images": [
+      "assets/img/zheng-lucheng.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 3/P35"
+  },
+  {
+    "id": "zu-chongzhi",
+    "chapter": "Public Works & Archive",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "祖沖之",
+    "title_en": "Zu Chongzhi",
+    "title_en_kind": "name",
+    "note": null,
+    "year": "2016",
+    "material_en": "Bronze",
+    "material_zh": "青銅",
+    "size": "H 150 cm",
+    "records": [
+      {
+        "en": "Xinyi Middle School, Guangdong",
+        "zh": "廣東信宜中學"
+      }
+    ],
+    "images": [
+      "assets/img/zu-chongzhi.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 4/P52"
+  },
+  {
+    "id": "for-peace",
+    "chapter": "Public Works & Archive",
+    "tier": "additional",
+    "hero": false,
+    "title_zh": "為了和平",
+    "title_en": "For Peace",
+    "title_en_kind": "title",
+    "note": "Archive English title: In the Sake of Peace",
+    "year": "2011",
+    "material_en": "Bronze relief",
+    "material_zh": "青銅浮雕",
+    "size": null,
+    "records": [
+      {
+        "en": "An Jung-geun Memorial Hall, Harbin",
+        "zh": "哈爾濱安重根紀念館"
+      }
+    ],
+    "images": [
+      "assets/img/for-peace.jpg"
+    ],
+    "source": "Artist archive (Conlin 2): 4/P39, work notes and the artist's 2011 address"
+  }
+]
