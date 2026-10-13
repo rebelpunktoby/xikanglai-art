@@ -74,13 +74,14 @@ img{display:block;max-width:100%;height:auto}
 .hero-fig{grid-column:6/13;margin:0;justify-self:end;width:fit-content;max-width:100%}
 .hero-fig .frame-static{overflow:hidden;display:flex;justify-content:flex-end}
 .hero-fig img{width:auto;max-width:100%;max-height:min(calc(100vh - 190px),820px);object-fit:contain}
-.hero-cap{max-width:100%}
 @media (min-width:900px){.hero{min-height:calc(100vh - 60px);align-content:center}}
-.hero-cap{margin-top:14px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;color:var(--mute)}
-.hero-cap a{text-decoration:none;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
-.hero-cap [lang]{letter-spacing:.12em}
-.hero-cap .hc-en{font-style:italic;letter-spacing:.02em}
-.hero-cap a:hover .hc-en{text-decoration:underline}
+.hero-fig{position:relative}
+.hero-text{position:relative;z-index:1}
+/* the title tag, reduced to a quiet spine beside the work */
+.hero-cap{position:absolute;left:-26px;bottom:2px;writing-mode:vertical-rl;margin:0;display:flex;gap:14px;align-items:center;font:300 11px/1 var(--f-zh);letter-spacing:.42em;color:var(--mute);white-space:nowrap}
+.hero-cap a{text-decoration:none;color:inherit;transition:color .4s}
+.hero-cap a:hover{color:var(--ink)}
+.hero-cap .num{font:300 10px/1 var(--f-display);letter-spacing:.24em}
 
 /* chapter thresholds: one composition per room */
 .ch-in{max-width:var(--max);margin-inline:auto;padding:clamp(96px,14vw,208px) var(--gut) clamp(32px,5vw,72px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:var(--gap);align-items:end;position:relative}
@@ -444,6 +445,19 @@ dialog[open]{opacity:1}
   @keyframes from-right{from{translate:48px 0;opacity:.2}}
   .pair-item.p1{animation:from-left linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
   .pair-item.p2{animation:from-right linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+  /* hero: as you leave, the name drifts into the work and the work leans toward the name */
+  .hero{view-timeline:--hero block;--hx:14vw;--hy:0px;--fx:-5vw;--fy:0px}
+  @keyframes h-merge{60%{opacity:.8}to{translate:var(--hx) var(--hy);letter-spacing:.16em;opacity:0}}
+  @keyframes h-follow{to{translate:calc(var(--hx) * .5) var(--hy);opacity:0}}
+  @keyframes f-lean{to{translate:var(--fx) var(--fy);scale:1.07;filter:brightness(.82) saturate(.85)}}
+  .hero h1{animation:h-merge linear both;animation-timeline:--hero;animation-range:exit 0% exit 90%}
+  .hero .roles{animation:h-follow linear both;animation-timeline:--hero;animation-range:exit 0% exit 55%}
+  .hero-fig .frame-static{transform-origin:100% 100%;animation:f-lean linear both;animation-timeline:--hero;animation-range:exit 0% exit 100%}
+  .hero-cap{animation:h-follow linear both;animation-timeline:--hero;animation-range:exit 0% exit 40%}
+  .hero h1{mix-blend-mode:multiply}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero h1{mix-blend-mode:screen}}
+  :root[data-theme="dark"] .hero h1{mix-blend-mode:screen}
+  @media (max-width:899px){.hero{--hx:0px;--hy:-7vh;--fx:0px;--fy:4vh}}
 
 }
 @media (prefers-reduced-motion:reduce){
@@ -455,6 +469,7 @@ dialog[open]{opacity:1}
 @media (max-width:899px){
   .hero-text,.hero-fig{grid-column:1/-1}
   .hero-fig{order:-1}
+  .hero-cap{position:static;writing-mode:horizontal-tb;margin-top:12px;justify-content:flex-end}
   .ch-head h2,.ch-head .ch-intro{grid-column:1/-1!important;grid-row:auto!important;text-align:left;justify-items:start}
   .ch-thresholds h2,.ch-thresholds .ch-intro{text-align:center;justify-items:center}
   .work .frame,.work .label-block{grid-column:1/-1!important;grid-row:auto!important}
@@ -559,6 +574,39 @@ dialog[open]{opacity:1}
   .group{--fh:min(300px,46svh)}
   .group.relief .group-grid{overflow:visible;margin-inline:0;padding-inline:0}
 }
+
+/* Dim gallery rooms: graphite walls with a trace of each material, a fine grain, and one soft light that moves as you read */
+.chapter{position:relative;isolation:isolate;padding-bottom:clamp(96px,11vw,170px);color:var(--ink);
+  --ink:#EEEDF1;--mute:#B4B3BD;--faint:#8A8995;--line:rgba(255,255,255,.14);--frame:rgba(255,255,255,.05);--paper:#2A2A2F}
+.chapter::before,.chapter::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none}
+/* grain: like the surface of a cast or a stone wall */
+.chapter::after{opacity:.55;mix-blend-mode:soft-light;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* each room: base wall + one light (the light is a layer twice the room's size, so it can travel) */
+.room-body::before{background:radial-gradient(28% 22% at 50% 50%,rgba(140,155,225,.16),transparent 70%) 80% 10%/200% 200% no-repeat,#2A2B33}
+.room-force::before{background:linear-gradient(115deg,transparent 35%,rgba(220,225,235,.10) 48%,rgba(255,255,255,.14) 50%,rgba(220,225,235,.10) 52%,transparent 65%) 0% 0%/300% 100% no-repeat,linear-gradient(165deg,#2C2D31,#323439 50%,#2A2B2F)}
+.room-thresholds::before{background:radial-gradient(30% 24% at 50% 50%,rgba(255,236,210,.10),transparent 70%) 50% 0%/200% 200% no-repeat,#2F2C29}
+.room-public::before{background:radial-gradient(30% 24% at 50% 50%,rgba(200,155,90,.16),transparent 70%) 20% 20%/200% 200% no-repeat,#2E2A23}
+/* the light moves with your reading, not on a timer */
+@supports (animation-timeline: view()){
+  @keyframes light-body{from{background-position:85% 0%}to{background-position:15% 100%}}
+  @keyframes light-force{from{background-position:100% 0}to{background-position:0% 0}}
+  @keyframes light-gate{from{background-position:50% 0%}to{background-position:50% 100%}}
+  @keyframes light-public{from{background-position:10% 0%}to{background-position:90% 100%}}
+  .room-body::before{animation:light-body linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+  .room-force::before{animation:light-force linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+  .room-thresholds::before{animation:light-gate linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+  .room-public::before{animation:light-public linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+}
+
+
+/* rooms join edge to edge: no white gap between one chapter and the next opening */
+.chapter{display:flow-root}
+.chapter .band,.chapter .ch-thresholds{margin-top:0!important}
+.room-body{margin-top:clamp(96px,12vw,180px)}
+/* C and D alternate: dim graphite, then near-black, so the walk through the rooms rises and falls */
+.room-force::before{background:linear-gradient(115deg,transparent 35%,rgba(220,225,235,.09) 48%,rgba(255,255,255,.13) 50%,rgba(220,225,235,.09) 52%,transparent 65%) 0% 0%/300% 100% no-repeat,linear-gradient(165deg,#1A1B1E,#222428 50%,#18191C)}
+.room-public::before{background:radial-gradient(30% 24% at 50% 50%,rgba(200,155,90,.15),transparent 70%) 20% 20%/200% 200% no-repeat,#1B1813}
+.room-force,.room-public{--paper:#18181B;--mute:#A9A8B3;--faint:#7E7D8A}
 </style>
 </head>
 <body>
@@ -579,11 +627,11 @@ dialog[open]{opacity:1}
     </div>
     <figure class="hero-fig">
       <div class="frame-static"><img src="assets/img/thumb/gate-of-spirit.webp" srcset="assets/img/thumb/gate-of-spirit.webp 800w, assets/img/gate-of-spirit.webp 1600w" sizes="(min-width: 900px) 46vw, 100vw" width="1405" height="1600" alt="The Gate of Spirit, stainless steel, 2025" fetchpriority="high" decoding="async"></div>
-      <figcaption class="hero-cap"><a href="#gate-of-spirit"><span lang="zh-Hant">意志之門</span><span class="hc-en">The Gate of Spirit</span></a><span class="num">2025</span></figcaption>
+      <figcaption class="hero-cap"><a href="#gate-of-spirit" lang="zh-Hant" title="The Gate of Spirit · 意志之門, 2025">意志之門</a><span class="num">2025</span></figcaption>
     </figure>
   </section>
 
-<section class="chapter" aria-labelledby="body-h">
+<section class="chapter room-body" aria-labelledby="body-h">
 <header class="ch-head ch-body has-band shade-mist" id="body">
   <div class="band">
     <img src="assets/img/midsummer-night.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 55%">
@@ -660,7 +708,7 @@ dialog[open]{opacity:1}
 </div>
 </div>
 </section>
-<section class="chapter" aria-labelledby="force-h">
+<section class="chapter room-force" aria-labelledby="force-h">
 <header class="ch-head ch-force has-band shade-door" id="force">
   <div class="band">
     <img src="assets/img/resultant-force.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%">
@@ -728,7 +776,7 @@ dialog[open]{opacity:1}
 </section>
 </div>
 </section>
-<section class="chapter chapter-gate" aria-labelledby="thresholds-h">
+<section class="chapter chapter-gate room-thresholds" aria-labelledby="thresholds-h">
 <header class="ch-head ch-thresholds" id="thresholds">
   <img class="th-shadow" src="assets/img/gate-of-chaos.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 55%">
   <div class="ch-in">
@@ -785,7 +833,7 @@ dialog[open]{opacity:1}
 </article>
 </div>
 </section>
-<section class="chapter" aria-labelledby="public-h">
+<section class="chapter room-public" aria-labelledby="public-h">
 <header class="ch-head ch-public has-band shade-soft" id="public">
   <div class="band">
     <img src="assets/img/for-peace.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 45%">
