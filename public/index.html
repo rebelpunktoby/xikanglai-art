@@ -623,7 +623,7 @@ dialog[open]{opacity:1}
 .hero{padding-bottom:clamp(56px,8vw,128px)}
 
 /* Selected history: key moments first, the full record on request */
-.history:not(.open) .more{display:none}
+.history:not(.open) .history-list,.history:not(.open) .history-more{display:none}
 .hist-toggle{all:unset;cursor:pointer;justify-self:start;margin-top:18px;display:inline-flex;align-items:center;gap:10px;font:400 10px/1.4 var(--f-display);letter-spacing:.24em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:4px;transition:color .4s,border-color .4s}
 .hist-toggle [lang]{letter-spacing:.3em;text-transform:none}
 .hist-toggle svg{stroke:currentColor;fill:none;stroke-width:1.2;transition:transform .4s var(--ease)}
@@ -651,6 +651,18 @@ dialog[open]{opacity:1}
     .th-stage .th-shadow{animation:dive linear both;animation-timeline:--th;animation-range:contain 0% contain 100%}
   }
 }
+
+/* chapter line or quote travels with the title, read during the hold */
+.band-text{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(18px,2.4vw,30px);width:100%}
+.band-text>*{grid-column:1!important;grid-row:auto!important}
+.ch-force .band-text{justify-items:end;text-align:right;margin-left:auto}
+.band .ch-intro{margin:0;display:grid;gap:8px;font-size:15px;line-height:1.7;max-width:56ch}
+.band .ch-intro,.band .ch-intro p{color:rgba(241,240,247,.8)!important}
+.band .ch-intro p{margin:0}
+.band .ch-intro [lang]{letter-spacing:.08em}
+.band .ch-quote blockquote{color:rgba(247,246,251,.92)}
+.band .ch-quote .tr{color:rgba(241,240,247,.68)}
+.has-band{padding-bottom:0}
 </style>
 </head>
 <body>
@@ -680,11 +692,8 @@ dialog[open]{opacity:1}
   <div class="band-stage"><div class="band">
     <div class="band-media"><img src="assets/img/midsummer-night.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 55%"></div>
     <span class="band-glow" aria-hidden="true"></span>
-    <div class="band-in"><h2 id="body-h"><span class="ch-en">Body &amp; Gesture</span><span class="ch-zh" lang="zh-Hant">身體與姿態</span></h2></div>
+    <div class="band-in"><div class="band-text"><h2 id="body-h"><span class="ch-en">Body &amp; Gesture</span><span class="ch-zh" lang="zh-Hant">身體與姿態</span></h2><figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">我認為舞蹈是運動的雕塑，而雕塑則是靜止的舞蹈。</blockquote><p class="tr">I think of dance as sculpture in motion, and sculpture as dance at rest.</p></figure></div></div>
   </div></div>
-  <div class="ch-in">
-    <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">我認為舞蹈是運動的雕塑，而雕塑則是靜止的舞蹈。</blockquote><p class="tr">I think of dance as sculpture in motion, and sculpture as dance at rest.</p></figure>
-  </div>
 </header>
 <div class="wrap works">
 <article class="work L-a" id="dialogue-of-the-wind">
@@ -757,11 +766,8 @@ dialog[open]{opacity:1}
   <div class="band-stage"><div class="band">
     <div class="band-media"><img src="assets/img/resultant-force.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
     <span class="band-glow" aria-hidden="true"></span>
-    <div class="band-in"><h2 id="force-h"><span class="ch-en">Force &amp; Equilibrium</span><span class="ch-zh" lang="zh-Hant">力與平衡</span></h2></div>
+    <div class="band-in"><div class="band-text"><h2 id="force-h"><span class="ch-en">Force &amp; Equilibrium</span><span class="ch-zh" lang="zh-Hant">力與平衡</span></h2><figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">平衡是美的，它能把你從不安帶回到平靜。</blockquote><p class="tr">Balance is beautiful; it can bring you back from unease to calm.</p></figure></div></div>
   </div></div>
-  <div class="ch-in">
-    <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">平衡是美的，它能把你從不安帶回到平靜。</blockquote><p class="tr">Balance is beautiful; it can bring you back from unease to calm.</p></figure>
-  </div>
 </header>
 <div class="wrap works">
 <article class="work L-wide-r" id="balance">
@@ -882,11 +888,8 @@ dialog[open]{opacity:1}
   <div class="band-stage"><div class="band">
     <div class="band-media"><img src="assets/img/for-peace.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 45%"></div>
     <span class="band-glow" aria-hidden="true"></span>
-    <div class="band-in"><h2 id="public-h"><span class="ch-en">Public Works &amp; Archive</span><span class="ch-zh" lang="zh-Hant">公共藝術與文獻</span></h2></div>
+    <div class="band-in"><div class="band-text"><h2 id="public-h"><span class="ch-en">Public Works &amp; Archive</span><span class="ch-zh" lang="zh-Hant">公共藝術與文獻</span></h2><div class="ch-intro"><p>Monuments and reliefs in China and South Korea, 2006–2018.</p><p lang="zh-Hant">中國與韓國的紀念像與浮雕，2006–2018。</p></div></div></div>
   </div></div>
-  <div class="ch-in">
-    <div class="ch-intro"><p>Monuments and reliefs in China and South Korea, 2006–2018.</p><p lang="zh-Hant">中國與韓國的紀念像與浮雕，2006–2018。</p></div>
-  </div>
 </header>
 <div class="wrap works">
 <article class="work L-b" id="lan-gui-teng-fang">
@@ -973,7 +976,7 @@ dialog[open]{opacity:1}
         <p class="history-foot">Collections: Guangzhou Academy of Fine Arts · Guangdong Medical University · Guangzhou Zhixin High School · Hong Kong Wetland Park · Zheng Lücheng Former Residence, Gwangju · An Jung-geun Memorial Hall, Harbin · Deng Shichang Memorial Hall, Guangzhou · private collections<span lang="zh-Hant">收藏：廣州美術學院、廣東醫學院、廣州執信中學、香港濕地公園、韓國光州鄭律成故居、哈爾濱安重根紀念館、廣州鄧世昌紀念館及私人收藏</span></p>
         <p class="history-foot">Auctions: China Guardian, Guangzhou and Huayi International, 2009–2017<span lang="zh-Hant">拍賣：中國嘉德（廣州）、華藝國際，2009–2017</span></p>
         </div>
-        <button class="hist-toggle" type="button" id="hist-t" aria-expanded="false" aria-controls="history-list">Full history <span lang="zh-Hant">完整經歷</span><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 10h12M10 4v12"/></svg></button>
+        <button class="hist-toggle" type="button" id="hist-t" aria-expanded="false" aria-controls="history-list">Show history <span lang="zh-Hant">展開經歷</span><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 10h12M10 4v12"/></svg></button>
       </section>
       <details>
         <summary><span>Statement and perspective <span lang="zh-Hant">自述與評論</span></span></summary>
@@ -1212,8 +1215,8 @@ form.addEventListener("submit", async (ev) => {
     const open = !h.classList.contains("open");
     h.classList.toggle("open", open);
     t.setAttribute("aria-expanded", open);
-    en.textContent = open ? "Fewer " : "Full history ";
-    zh.textContent = open ? "收起" : "完整經歷";
+    en.textContent = open ? "Fold " : "Show history ";
+    zh.textContent = open ? "收起" : "展開經歷";
     if (!open) h.scrollIntoView({ block: "nearest" });
   });
 })();
