@@ -621,6 +621,36 @@ dialog[open]{opacity:1}
 .about{padding-block:clamp(116px,15vw,216px)}
 .contact .wrap{padding-block:clamp(88px,12vw,172px)}
 .hero{padding-bottom:clamp(56px,8vw,128px)}
+
+/* Selected history: key moments first, the full record on request */
+.history:not(.open) .more{display:none}
+.hist-toggle{all:unset;cursor:pointer;justify-self:start;margin-top:18px;display:inline-flex;align-items:center;gap:10px;font:400 10px/1.4 var(--f-display);letter-spacing:.24em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:4px;transition:color .4s,border-color .4s}
+.hist-toggle [lang]{letter-spacing:.3em;text-transform:none}
+.hist-toggle svg{stroke:currentColor;fill:none;stroke-width:1.2;transition:transform .4s var(--ease)}
+.hist-toggle[aria-expanded="true"] svg{transform:rotate(45deg)}
+.hist-toggle:hover{color:var(--ink);border-color:var(--ink)}
+.hist-toggle:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
+.history-more{display:grid;gap:10px;margin-top:14px}
+
+/* chapter openings: arrive, hold for a long look, then dive into the room */
+.band-media{position:absolute;inset:0}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    .band-stage{view-timeline:--stage block;height:calc(100svh + 95vh)}
+    .band-stage .band{position:sticky;top:0;height:100svh;margin-top:0}
+    .band-media{transform-origin:50% 62%;animation:dive linear both;animation-timeline:--stage;animation-range:contain 0% contain 100%}
+    @keyframes dive{0%,50%{scale:1;filter:brightness(1)}100%{scale:1.32;filter:brightness(.5)}}
+    .band-stage .band-in{animation:hold-title linear both;animation-timeline:--stage;animation-range:contain 0% contain 100%}
+    @keyframes hold-title{0%{opacity:.85;translate:0 4vh}22%,68%{opacity:1;translate:0 0}100%{opacity:0;translate:0 -5vh}}
+    .band-stage .ch-en,.band-stage .ch-zh{animation:none}
+    .th-stage{view-timeline:--th block;height:calc(100svh + 90vh)}
+    .th-stage>.ch-thresholds{position:sticky;top:0;height:100svh;display:grid;align-content:center;margin-top:0;animation:doorway linear both;animation-timeline:--th;animation-range:contain 0% contain 40%}
+    .th-stage .ch-thresholds .ch-in{min-height:0;width:100%}
+    .th-stage .ch-in{animation:hold-title linear both;animation-timeline:--th;animation-range:contain 0% contain 100%}
+    .th-stage .ch-en,.th-stage .ch-zh,.th-stage .ch-intro{animation:none}
+    .th-stage .th-shadow{animation:dive linear both;animation-timeline:--th;animation-range:contain 0% contain 100%}
+  }
+}
 </style>
 </head>
 <body>
@@ -647,11 +677,11 @@ dialog[open]{opacity:1}
 
 <section class="chapter room-body" aria-labelledby="body-h">
 <header class="ch-head ch-body has-band shade-mist" id="body">
-  <div class="band">
-    <img src="assets/img/midsummer-night.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 55%">
+  <div class="band-stage"><div class="band">
+    <div class="band-media"><img src="assets/img/midsummer-night.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 55%"></div>
     <span class="band-glow" aria-hidden="true"></span>
     <div class="band-in"><h2 id="body-h"><span class="ch-en">Body &amp; Gesture</span><span class="ch-zh" lang="zh-Hant">身體與姿態</span></h2></div>
-  </div>
+  </div></div>
   <div class="ch-in">
     <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">我認為舞蹈是運動的雕塑，而雕塑則是靜止的舞蹈。</blockquote><p class="tr">I think of dance as sculpture in motion, and sculpture as dance at rest.</p></figure>
   </div>
@@ -724,11 +754,11 @@ dialog[open]{opacity:1}
 </section>
 <section class="chapter room-force" aria-labelledby="force-h">
 <header class="ch-head ch-force has-band shade-door" id="force">
-  <div class="band">
-    <img src="assets/img/resultant-force.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%">
+  <div class="band-stage"><div class="band">
+    <div class="band-media"><img src="assets/img/resultant-force.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></div>
     <span class="band-glow" aria-hidden="true"></span>
     <div class="band-in"><h2 id="force-h"><span class="ch-en">Force &amp; Equilibrium</span><span class="ch-zh" lang="zh-Hant">力與平衡</span></h2></div>
-  </div>
+  </div></div>
   <div class="ch-in">
     <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">平衡是美的，它能把你從不安帶回到平靜。</blockquote><p class="tr">Balance is beautiful; it can bring you back from unease to calm.</p></figure>
   </div>
@@ -791,13 +821,13 @@ dialog[open]{opacity:1}
 </div>
 </section>
 <section class="chapter chapter-gate room-thresholds" aria-labelledby="thresholds-h">
-<header class="ch-head ch-thresholds" id="thresholds">
+<div class="th-stage"><header class="ch-head ch-thresholds" id="thresholds">
   <img class="th-shadow" src="assets/img/gate-of-chaos.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 55%">
   <div class="ch-in">
     <h2 id="thresholds-h"><span class="ch-en">Thresholds &amp; Space</span><span class="ch-zh" lang="zh-Hant">門與空間</span></h2>
     <figure class="ch-intro ch-quote"><blockquote lang="zh-Hant">現代藝術從傳統走來，又一次次地否定，在肯定中傳承，在否定中進步。</blockquote><p class="tr">Modern art comes out of tradition and negates it again and again — carried on through affirmation, moving forward through negation.</p><p class="ch-span">From Civilized Ruins (1990) to the Gate series (2022–2025).<span lang="zh-Hant">從《廢墟》（1990）到「門系列」（2022–2025）。</span></p></figure>
   </div>
-</header>
+</header></div>
 <div class="wrap works">
 <section class="pair" aria-labelledby="ruins-h">
   <header class="pair-head">
@@ -849,11 +879,11 @@ dialog[open]{opacity:1}
 </section>
 <section class="chapter room-public" aria-labelledby="public-h">
 <header class="ch-head ch-public has-band shade-soft" id="public">
-  <div class="band">
-    <img src="assets/img/for-peace.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 45%">
+  <div class="band-stage"><div class="band">
+    <div class="band-media"><img src="assets/img/for-peace.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 45%"></div>
     <span class="band-glow" aria-hidden="true"></span>
     <div class="band-in"><h2 id="public-h"><span class="ch-en">Public Works &amp; Archive</span><span class="ch-zh" lang="zh-Hant">公共藝術與文獻</span></h2></div>
-  </div>
+  </div></div>
   <div class="ch-in">
     <div class="ch-intro"><p>Monuments and reliefs in China and South Korea, 2006–2018.</p><p lang="zh-Hant">中國與韓國的紀念像與浮雕，2006–2018。</p></div>
   </div>
@@ -915,32 +945,35 @@ dialog[open]{opacity:1}
       <p class="lead">For more than three decades Xikang Lai has looked for the moment a body holds still without losing its motion. He studied sculpture at the Guangzhou Academy of Fine Arts, which holds his graduation work <i>Civilized Ruins</i> (1990), and has taught in Guangzhou ever since — first at a vocational school, then as a visiting lecturer and professor. His studio works move between dancers, yogis and turning figures in bronze, cupronickel and marble; his public commissions stand in parks, schools and memorial halls. Since 2022 the Gate series has carried the same search into geometry. He is a member of the Guangdong Artists Association.<span lang="zh-Hant">三十多年來，賴錫康一直在尋找那個身體靜止、卻不失動勢的瞬間。他畢業於廣州美術學院雕塑系，畢業作品《廢墟》（1990）現藏學院；此後一直在廣州任教——先在職業中學，後任多所院校客座講師及教授。他的架上作品在舞者、瑜伽與迴轉的人體之間往返，以青銅、白銅與漢白玉塑造；公共作品則立於公園、學校與紀念館。自2022年起，「門系列」把這份追尋帶入幾何。廣東省美術家協會會員。</span></p>
       <section class="history" aria-labelledby="history-h">
         <h3 id="history-h" class="history-title">Selected history <span lang="zh-Hant">經歷選錄</span></h3>
-        <ol class="history-list">
+        <ol class="history-list" id="history-list">
           <li><span class="h-year num">1990</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what"><a class="ext" href="https://en.wikipedia.org/wiki/Guangzhou_Academy_of_Fine_Arts" target="_blank" rel="noopener">Guangzhou Academy of Fine Arts</a> · B.A. in Sculpture; <i>Civilized Ruins</i>, now in the Academy's collection<span lang="zh-Hant">廣州美術學院・雕塑系學士；《廢墟》現藏學院</span></span></li>
-          <li><span class="h-year num">1990–2002</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangzhou Urban Construction Vocational High School · Teacher<span lang="zh-Hant">廣州城市建設高級職業中學・一級教師</span></span></li>
-          <li><span class="h-year num">1992</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Art Exhibition · <i>Respected Teacher</i><span lang="zh-Hant">廣東省美展・《恩師》</span></span></li>
-          <li><span class="h-year num">1997</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">National Art Exhibition, Guangdong selection · <i>Partita</i><span lang="zh-Hant">全國美展廣東省展區・《夕陽的變奏》</span></span></li>
-          <li><span class="h-year num">1997</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Sports Art Exhibition · <i>Action</i><span lang="zh-Hant">廣東省體育美展・《出擊》</span></span></li>
-          <li><span class="h-year num">2002–05</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangzhou Academy of Fine Arts · Visiting lecturer, three-dimensional composition<span lang="zh-Hant">廣州美術學院・客座講師（三維構成）</span></span></li>
-          <li><span class="h-year num">2004</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Art Exhibition · <i>Harmony</i><span lang="zh-Hant">廣東藝術展覽・《和》</span></span></li>
-          <li><span class="h-year num">2005</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Sports Art Exhibition · <i>The Wisdom of Calm</i><span lang="zh-Hant">廣東省體育藝術展覽・《靜的智慧》</span></span></li>
-          <li><span class="h-year num">2005–06</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Lingnan Fine Arts College · Visiting lecturer, foundations of sculpture<span lang="zh-Hant">嶺南藝術學院・客座講師（雕塑基本技巧）</span></span></li>
-          <li><span class="h-year num">2006</span><span class="h-place">Gwangju, South Korea<span lang="zh-Hant">韓國光州</span></span><span class="h-what">Nam-gu Youth Office · Certificate for outstanding contribution to Korea–China friendship<span lang="zh-Hant">光州市南區青年事務所・中韓友誼突出貢獻證書</span></span></li>
-          <li><span class="h-year num">2006–08</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Commercial College · Visiting professor<span lang="zh-Hant">廣東商學院・客座教授</span></span></li>
-          <li><span class="h-year num">2007</span><span class="h-place">Guangdong<span lang="zh-Hant">廣東</span></span><span class="h-what"><i>Dance Study</i> and <i>Ballet</i> · Cover sculptures; essay “The Beauty of Sculpture and Dance”<span lang="zh-Hant">《舞蹈研究》《芭蕾》・封面雕塑；發表〈雕塑和舞蹈之美〉</span></span></li>
+          <li class="more"><span class="h-year num">1990–2002</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangzhou Urban Construction Vocational High School · Teacher<span lang="zh-Hant">廣州城市建設高級職業中學・一級教師</span></span></li>
+          <li class="more"><span class="h-year num">1992</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Art Exhibition · <i>Respected Teacher</i><span lang="zh-Hant">廣東省美展・《恩師》</span></span></li>
+          <li class="more"><span class="h-year num">1997</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">National Art Exhibition, Guangdong selection · <i>Partita</i><span lang="zh-Hant">全國美展廣東省展區・《夕陽的變奏》</span></span></li>
+          <li class="more"><span class="h-year num">1997</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Sports Art Exhibition · <i>Action</i><span lang="zh-Hant">廣東省體育美展・《出擊》</span></span></li>
+          <li class="more"><span class="h-year num">2002–05</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangzhou Academy of Fine Arts · Visiting lecturer, three-dimensional composition<span lang="zh-Hant">廣州美術學院・客座講師（三維構成）</span></span></li>
+          <li class="more"><span class="h-year num">2004</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Art Exhibition · <i>Harmony</i><span lang="zh-Hant">廣東藝術展覽・《和》</span></span></li>
+          <li class="more"><span class="h-year num">2005</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Sports Art Exhibition · <i>The Wisdom of Calm</i><span lang="zh-Hant">廣東省體育藝術展覽・《靜的智慧》</span></span></li>
+          <li class="more"><span class="h-year num">2005–06</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Lingnan Fine Arts College · Visiting lecturer, foundations of sculpture<span lang="zh-Hant">嶺南藝術學院・客座講師（雕塑基本技巧）</span></span></li>
+          <li class="more"><span class="h-year num">2006</span><span class="h-place">Gwangju, South Korea<span lang="zh-Hant">韓國光州</span></span><span class="h-what">Nam-gu Youth Office · Certificate for outstanding contribution to Korea–China friendship<span lang="zh-Hant">光州市南區青年事務所・中韓友誼突出貢獻證書</span></span></li>
+          <li class="more"><span class="h-year num">2006–08</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Guangdong Commercial College · Visiting professor<span lang="zh-Hant">廣東商學院・客座教授</span></span></li>
+          <li class="more"><span class="h-year num">2007</span><span class="h-place">Guangdong<span lang="zh-Hant">廣東</span></span><span class="h-what"><i>Dance Study</i> and <i>Ballet</i> · Cover sculptures; essay “The Beauty of Sculpture and Dance”<span lang="zh-Hant">《舞蹈研究》《芭蕾》・封面雕塑；發表〈雕塑和舞蹈之美〉</span></span></li>
           <li><span class="h-year num">2008</span><span class="h-place">Hong Kong<span lang="zh-Hant">香港</span></span><span class="h-what"><a class="ext" href="https://www.wetlandpark.gov.hk/en/aboutus" target="_blank" rel="noopener">Hong Kong Wetland Park</a> · Commissioned sculpture series<span lang="zh-Hant">香港濕地公園・系列雕塑</span></span></li>
           <li><span class="h-year num">2010</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what"><a class="ext" href="https://en.wikipedia.org/wiki/2010_Asian_Games" target="_blank" rel="noopener">16th Asian Games</a> · <i>Balance</i>, Excellence Award for sculpture design<span lang="zh-Hant">第十六屆亞洲運動會・《平衡》雕塑設計優秀獎</span></span></li>
           <li><span class="h-year num">2011</span><span class="h-place">Harbin<span lang="zh-Hant">哈爾濱</span></span><span class="h-what">An Jung-geun Memorial Hall · <i>For Peace</i>, bronze relief<span lang="zh-Hant">安重根紀念館・《為了和平》青銅浮雕</span></span></li>
-          <li><span class="h-year num">2013</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Asia Sculpture Annual Exhibition · <i>Spring</i><span lang="zh-Hant">亞洲雕塑年度展覽・《春》</span></span></li>
-          <li><span class="h-year num">2016</span><span class="h-place">Xinyi, Guangdong<span lang="zh-Hant">廣東信宜</span></span><span class="h-what">Xinyi Middle School · <i>Zu Chongzhi</i><span lang="zh-Hant">信宜中學・《祖沖之》</span></span></li>
-          <li><span class="h-year num">2018</span><span class="h-place">Taichung, Taiwan<span lang="zh-Hant">臺灣臺中</span></span><span class="h-what">Cross-Strait Sculpture Exhibition · <i>Resultant Force</i>, <i>Float</i><span lang="zh-Hant">兩岸雕塑展・《合力》《水天》</span></span></li>
-          <li><span class="h-year num">2018</span><span class="h-place">Shanghai<span lang="zh-Hant">上海</span></span><span class="h-what">International Sculpture Forum · Exhibitor<span lang="zh-Hant">國際雕塑論壇・參展</span></span></li>
+          <li class="more"><span class="h-year num">2013</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Asia Sculpture Annual Exhibition · <i>Spring</i><span lang="zh-Hant">亞洲雕塑年度展覽・《春》</span></span></li>
+          <li class="more"><span class="h-year num">2016</span><span class="h-place">Xinyi, Guangdong<span lang="zh-Hant">廣東信宜</span></span><span class="h-what">Xinyi Middle School · <i>Zu Chongzhi</i><span lang="zh-Hant">信宜中學・《祖沖之》</span></span></li>
+          <li class="more"><span class="h-year num">2018</span><span class="h-place">Taichung, Taiwan<span lang="zh-Hant">臺灣臺中</span></span><span class="h-what">Cross-Strait Sculpture Exhibition · <i>Resultant Force</i>, <i>Float</i><span lang="zh-Hant">兩岸雕塑展・《合力》《水天》</span></span></li>
+          <li class="more"><span class="h-year num">2018</span><span class="h-place">Shanghai<span lang="zh-Hant">上海</span></span><span class="h-what">International Sculpture Forum · Exhibitor<span lang="zh-Hant">國際雕塑論壇・參展</span></span></li>
           <li><span class="h-year num">2018</span><span class="h-place">Guangzhou<span lang="zh-Hant">廣州</span></span><span class="h-what">Baiyun District · <i>Orchid and Osmanthus in Bloom</i>, public sculpture<span lang="zh-Hant">白雲區・《蘭桂騰芳》公共雕塑</span></span></li>
           <li><span class="h-year num">2025</span><span class="h-place">Taichung, Taiwan<span lang="zh-Hant">臺灣臺中</span></span><span class="h-what">International Invitational Exhibition · <i>Resultant Force</i><span lang="zh-Hant">臺中國際邀請展・《合力》</span></span></li>
         </ol>
+        <div class="more history-more">
         <p class="history-foot">Publications: <i>The Development of Twentieth-Century Chinese Sculpture</i> (Tianjin Fine Arts, 2012) · <i>People's Sculptors</i> (2017) · <i>Glorious Seventy Years</i> (2020) · <i>The Way of the Master</i> (2020), Hebei Fine Arts<span lang="zh-Hant">收錄：《影響中國二十世紀雕塑藝術發展》（天津美術出版社，2012）、《人民雕塑家》（2017）、《輝煌70年》（2020）、《大匠之道》（2020），河北美術出版社</span></p>
         <p class="history-foot">Collections: Guangzhou Academy of Fine Arts · Guangdong Medical University · Guangzhou Zhixin High School · Hong Kong Wetland Park · Zheng Lücheng Former Residence, Gwangju · An Jung-geun Memorial Hall, Harbin · Deng Shichang Memorial Hall, Guangzhou · private collections<span lang="zh-Hant">收藏：廣州美術學院、廣東醫學院、廣州執信中學、香港濕地公園、韓國光州鄭律成故居、哈爾濱安重根紀念館、廣州鄧世昌紀念館及私人收藏</span></p>
         <p class="history-foot">Auctions: China Guardian, Guangzhou and Huayi International, 2009–2017<span lang="zh-Hant">拍賣：中國嘉德（廣州）、華藝國際，2009–2017</span></p>
+        </div>
+        <button class="hist-toggle" type="button" id="hist-t" aria-expanded="false" aria-controls="history-list">Full history <span lang="zh-Hant">完整經歷</span><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true" focusable="false"><path d="M4 10h12M10 4v12"/></svg></button>
       </section>
       <details>
         <summary><span>Statement and perspective <span lang="zh-Hant">自述與評論</span></span></summary>
@@ -1169,6 +1202,20 @@ form.addEventListener("submit", async (ev) => {
       last = y; ticking = false;
     });
   }, { passive: true });
+})();
+
+/* Selected history: expand / collapse */
+(() => {
+  const t = document.getElementById("hist-t"); if (!t) return;
+  const h = t.closest(".history"), en = t.firstChild, zh = t.querySelector("[lang]");
+  t.addEventListener("click", () => {
+    const open = !h.classList.contains("open");
+    h.classList.toggle("open", open);
+    t.setAttribute("aria-expanded", open);
+    en.textContent = open ? "Fewer " : "Full history ";
+    zh.textContent = open ? "收起" : "完整經歷";
+    if (!open) h.scrollIntoView({ block: "nearest" });
+  });
 })();
 </script>
 
